@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="624.0" prefWidth="1189.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.userview.Userauditdashboard">
+   <children>
+      <AnchorPane prefHeight="66.0" prefWidth="1189.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css">
+         <children>
+            <Button fx:id="editbtn1" layoutX="170.0" layoutY="10.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="141.0" stylesheets="@../../css/btn2.css" text="ရာထူးအားလုံး (0)">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+               <graphic>
+                  <FontAwesomeIconView glyphName="GEAR" glyphStyle="-fx-fill:white" size="24" />
+               </graphic>
+            </Button>
+            <Button fx:id="editbtn11" layoutX="320.0" layoutY="10.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="166.0" stylesheets="@../../css/btn2.css" text="အသုံးပြုခွင့်အားလုံး (0)">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+               <graphic>
+                  <FontAwesomeIconView glyphName="GEARS" glyphStyle="-fx-fill:white" size="24" />
+               </graphic>
+            </Button>
+            <Button fx:id="editbtn111" layoutX="495.0" layoutY="10.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="166.0" stylesheets="@../../css/btn2.css" text="ရာထူးနှင့်အသုံးပြုခွင့်များ">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+               <graphic>
+                  <FontAwesomeIconView glyphName="CHAIN" glyphStyle="-fx-fill:white" size="24" />
+               </graphic>
+            </Button>
+            <TableView layoutX="947.0" layoutY="3.0" prefHeight="54.0" prefWidth="233.0">
+               <columns>
+                  <TableColumn prefWidth="61.0" text="Action" />
+                  <TableColumn prefWidth="100.0" text="Log Count" />
+                  <TableColumn prefWidth="71.0" text="Role Count" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <Button fx:id="editbtn" layoutX="4.0" layoutY="10.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" stylesheets="@../../css/btn2.css" text="အသုံးပြုသူအားလုံး (0)">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+         <padding>
+            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+         </padding>
+         <graphic>
+            <FontAwesomeIconView glyphName="USERS" glyphStyle="-fx-fill:white" size="24" />
+         </graphic>
+      </Button>
+      <TableView layoutX="14.0" layoutY="77.0" prefHeight="539.0" prefWidth="1164.0" stylesheets="@../../css/tableview.css">
+         <columns>
+            <TableColumn prefWidth="96.0" text="လော့ဒ်အိုင်ဒီ" />
+            <TableColumn prefWidth="292.0" text="အမည်" />
+            <TableColumn prefWidth="192.0" text="အသုံးပြုခြင်း" />
+            <TableColumn prefWidth="180.0" text="Table  အမည်" />
+            <TableColumn prefWidth="181.0" text="Reference နံပါတ်" />
+            <TableColumn prefWidth="222.0" text="အချိန်" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
