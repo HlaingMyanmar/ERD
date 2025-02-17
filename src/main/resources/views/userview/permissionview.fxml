@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="382.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erd.roleoptions.controllers.RolesController">
+   <children>
+      <TableView fx:id="roletable" layoutX="4.0" layoutY="4.0" prefHeight="368.0" prefWidth="525.0" stylesheets="@../../css/tableview.css">
+        <columns>
+          <TableColumn fx:id="roleCol" prefWidth="118.0" text="ခွင့်ပြုချက်ပုံစံ" />
+          <TableColumn fx:id="descCol" prefWidth="319.0" text="အကြောင်းအရာ" />
+            <TableColumn fx:id="statusCol" prefWidth="87.0" text="အခြေအနေ" />
+        </columns>
+      </TableView>
+      <VBox layoutX="541.0" layoutY="9.0" prefHeight="313.0" prefWidth="304.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css">
+         <children>
+            <TextField fx:id="roletxt" promptText="ရာထူခွင့်ပြုချက်ပုံစံး">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextArea fx:id="desctxt" prefHeight="200.0" prefWidth="200.0" promptText="သက်ဆိုင်ရာ တာဝန်များ">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </VBox.margin>
+            </TextArea>
+            <HBox prefHeight="43.0" prefWidth="304.0">
+               <children>
+                  <JFXCheckBox fx:id="enablecheckbox" text="ဖွင့်မည်။">
+                     <font>
+                        <Font name="Pyidaungsu" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXCheckBox>
+                  <JFXCheckBox fx:id="disablecheckbox" layoutX="10.0" layoutY="10.0" text="ပိတ်မည်။">
+                     <font>
+                        <Font name="Pyidaungsu" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXCheckBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button fx:id="insertbtn" layoutX="541.0" layoutY="327.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" stylesheets="@../../css/btn2.css" text="အသစ်ထည့်မည်။">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+         <graphic>
+            <FontAwesomeIconView glyphName="SAVE" glyphStyle="-fx-fill:white" size="24" />
+         </graphic>
+      </Button>
+      <Button fx:id="editbtn" layoutX="707.0" layoutY="327.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="141.0" stylesheets="@../../css/btn2.css" text="ပြုပြင်မည်။">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+         <padding>
+            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+         </padding>
+         <graphic>
+            <FontAwesomeIconView glyphName="EDIT" glyphStyle="-fx-fill:white" size="24" />
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
