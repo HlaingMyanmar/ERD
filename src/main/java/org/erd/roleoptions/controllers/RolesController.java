@@ -94,7 +94,12 @@ public class RolesController implements Initializable {
 
                Roles roles =  new Roles(role, desc);
 
-               Boolean b = testRoleValidate(roles) && roleService.addRole(roles);
+               boolean b = testRoleValidate(roles) && roleService.addRole(roles);
+
+               if(b){
+
+                   showInformationDialog("ရာထူး","အောင်မြင်သည်။","ရာထူးထည့်ခြင်း အောင်မြင်သည်။");
+               }
 
 
 
@@ -104,7 +109,12 @@ public class RolesController implements Initializable {
 
                Roles roles = new Roles(role, desc, status);
 
-               Boolean b = testRoleValidate(roles) && roleService.addRole(roles);
+               boolean b = testRoleValidate(roles) && roleService.addRole(roles);
+
+               if(b){
+
+                   showInformationDialog("ရာထူး","အောင်မြင်သည်။","ရာထူးထည့်ခြင်း အောင်မြင်သည်။");
+               }
 
 
 
