@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+@Transactional
 @Repository
 public class Rolesdb implements DataAccessObject<Roles> {
 
