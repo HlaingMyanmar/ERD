@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import org.erd.roleoptions.models.Roles;
 import org.erd.roleoptions.services.RoleService;
 import org.springframework.stereotype.Controller;
@@ -87,14 +88,32 @@ public class RolesController implements Initializable {
             String desc  = desctxt.getText();
             byte status = (byte) getConditionCheckbox();
 
-            Roles roles = new Roles(role, desc, status);
+
+           if(!getConditionCheckboxNoSelection()){
 
 
-            if(testRoleValidate(roles)){
+               Roles roles =  new Roles(role, desc);
 
-               roleService.addRole(roles);
+               Boolean b = testRoleValidate(roles) && roleService.addRole(roles);
 
-            }
+
+
+
+           }
+           else {
+
+               Roles roles = new Roles(role, desc, status);
+
+               Boolean b = testRoleValidate(roles) && roleService.addRole(roles);
+
+
+
+           }
+
+
+
+
+
 
 
 
@@ -106,16 +125,26 @@ public class RolesController implements Initializable {
 
     }
 
+    private boolean getConditionCheckboxNoSelection() {
+
+
+        return enablecheckbox.isSelected() || disablecheckbox.isSelected();
+
+
+    }
+
     private int getConditionCheckbox() {
 
-        AtomicInteger index = new AtomicInteger();
+
 
 
         enablecheckbox.setOnAction(event -> {
 
+
+
             enablecheckbox.setSelected(true);
             disablecheckbox.setSelected(false);
-            index.set(1);
+
 
 
         });
@@ -124,12 +153,18 @@ public class RolesController implements Initializable {
 
             enablecheckbox.setSelected(false);
             disablecheckbox.setSelected(true);
-            index.set(0);
+
+
+
 
 
         });
 
-    return index.get();
+
+        return enablecheckbox.isSelected()  ? 1 : 0;
+
+
+
     }
 
     private void getLoadRowData() {
@@ -212,6 +247,17 @@ public class RolesController implements Initializable {
     private void showErrorDialog(String title, String header, String content) {
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(header);
+            alert.setContentText(content);
+            alert.showAndWait();
+        });
+    }
+
+    private void showInformationDialog(String title, String header, String content) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initModality(Modality.APPLICATION_MODAL);
             alert.setTitle(title);
             alert.setHeaderText(header);
             alert.setContentText(content);

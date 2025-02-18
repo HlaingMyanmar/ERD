@@ -2,6 +2,8 @@ package org.erd.roleoptions.models;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -31,6 +33,7 @@ public class Roles {
     private String description;
 
 
+
     @Column(name = "is_active",length = 1)
     private byte is_active;
 
@@ -50,5 +53,14 @@ public class Roles {
         this.role_name = role_name;
         this.description = description;
         this.is_active = is_active;
+    }
+
+
+    /*
+    Data Insert without is_active
+     */
+    public Roles(String role_name, String description) {
+        this.role_name = role_name;
+        this.description = description;
     }
 }
