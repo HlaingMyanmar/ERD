@@ -4,14 +4,15 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="689.0" prefWidth="1251.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.purchaseviews.Createpurchaseview">
    <children>
-      <AnchorPane layoutX="-8.0" prefHeight="143.0" prefWidth="1261.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css">
+      <AnchorPane layoutX="-7.0" prefHeight="75.0" prefWidth="1261.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css">
          <children>
             <TextField fx:id="roletxt" layoutX="18.0" layoutY="32.0" prefHeight="32.0" prefWidth="178.0" promptText="အဝယ်ကုဒ်">
                <font>
@@ -39,12 +40,142 @@
                   <Font name="Pyidaungsu Bold" size="12.0" />
                </font>
             </Label>
-            <Button layoutX="671.0" layoutY="30.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="196.0" stylesheets="@../../css/btn2.css" text="ရောင်းချသူ အချက်အလက်များ">
+            <Button layoutX="644.0" layoutY="35.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="196.0" stylesheets="@../../css/btn2.css" text="ရောင်းချသူ အချက်အလက်များ">
                <font>
                   <Font name="Pyidaungsu Bold" size="12.0" />
                </font>
             </Button>
-            <FontAwesomeIconView layoutX="939.0" layoutY="110.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1.0" layoutY="83.0" prefHeight="446.0" prefWidth="1253.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css">
+         <children>
+            <TableView layoutX="8.0" layoutY="66.0" prefHeight="348.0" prefWidth="1239.0" stylesheets="@../../css/vounchertableview.css">
+              <columns>
+                <TableColumn prefWidth="40.0">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="NAVICON" glyphStyle="-fx-fill:white" size="24" />
+                     </graphic>
+                  </TableColumn>
+                <TableColumn prefWidth="133.0" text="အဝယ်ကုဒ်" />
+                  <TableColumn prefWidth="394.0" text="ပစ္စည်းအမျိးအမည်" />
+                  <TableColumn text="အရေအတွက်" />
+                  <TableColumn prefWidth="107.0" text="ဈေးနှုန်း" />
+                  <TableColumn prefWidth="125.0" text="ပမာဏ" />
+                  <TableColumn prefWidth="113.0" text="လျော့ချပမာဏ" />
+                  <TableColumn prefWidth="91.0" text="Tax" />
+                  <TableColumn prefWidth="106.0" text="စုစုပေါင်း" />
+                  <TableColumn prefWidth="49.0" />
+              </columns>
+            </TableView>
+            <Button layoutX="721.0" layoutY="22.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="126.0" stylesheets="@../../css/btn2.css" text="ဝယ်မည်။">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView glyphName="CART_PLUS" glyphStyle="-fx-fill:white" size="24" />
+               </graphic>
+            </Button>
+            <FontAwesomeIconView glyphName="NAVICON" glyphStyle="-fx-fill:white" layoutX="1026.0" layoutY="324.0" size="24" />
+            <Button layoutX="858.0" layoutY="22.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="126.0" stylesheets="@../../css/btn2.css" text="ပြင်ဆင်မည်။">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView glyphName="EDIT" glyphStyle="-fx-fill:white" size="24" />
+               </graphic>
+            </Button>
+            <Button layoutX="993.0" layoutY="22.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="126.0" stylesheets="@../../css/btn2.css" text=" ဖျက်မည်။">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView glyphName="RECYCLE" glyphStyle="-fx-fill:white" size="24" />
+               </graphic>
+            </Button>
+            <TextField layoutX="972.0" layoutY="413.0" prefHeight="32.0" prefWidth="149.0" style="-fx-alignment: center; -fx-background-color: #FFFFFF;" text="စုစုပေါင်း">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </TextField>
+            <TextField layoutX="1121.0" layoutY="413.0" prefHeight="32.0" prefWidth="126.0" style="-fx-text-fill: red; -fx-background-color: #FFFFFF;" text="စုစုပေါင်း">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="14.0" layoutY="22.0" prefHeight="20.0" prefWidth="77.0" style="-fx-text-fill: #006BB7;" text="ပစ္စည်းစာရင်း" underline="true">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1.0" layoutY="538.0" prefHeight="144.0" prefWidth="1253.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css">
+         <children>
+            <Label layoutX="14.0" layoutY="18.0" prefHeight="20.0" prefWidth="126.0" text="ငွေပေးချေခြင်းနည်းလမ်း">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="60.0" prefHeight="20.0" prefWidth="126.0" text="ပေးချေငွေ">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="roletxt21" layoutX="131.0" layoutY="52.0" prefHeight="32.0" prefWidth="178.0" promptText="ပေးချေငွေ">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="14.0" layoutY="98.0" prefHeight="20.0" prefWidth="126.0" text="Reference No.">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="roletxt211" layoutX="131.0" layoutY="92.0" prefHeight="32.0" prefWidth="178.0" promptText="Reference No.">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+            </TextField>
+            <ComboBox layoutX="131.0" layoutY="12.0" prefHeight="32.0" prefWidth="178.0" promptText="ငွေပေးချေခြင်းနည်းလမ်း" />
+            <Label layoutX="332.0" layoutY="18.0" prefHeight="20.0" prefWidth="143.0" text="ငွေပေးချေခြင်း အခြေအနေ - ">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="474.0" layoutY="18.0" prefHeight="20.0" prefWidth="126.0" text="Unpaid" textFill="RED">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="331.0" layoutY="58.0" prefHeight="20.0" prefWidth="143.0" text="လက်ကျန်ငွေ -">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="474.0" layoutY="58.0" prefHeight="20.0" prefWidth="126.0" text="0.00" textFill="RED">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="331.0" layoutY="98.0" prefHeight="20.0" prefWidth="143.0" text="Verified By :">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="474.0" layoutY="98.0" prefHeight="20.0" prefWidth="126.0" text="-" textFill="RED">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+            </Label>
+            <Button layoutX="620.0" layoutY="53.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="126.0" stylesheets="@../../css/btn2.css" text="သေချာသည်။">
+               <font>
+                  <Font name="Pyidaungsu Bold" size="12.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView glyphName="CHECK_CIRCLE" glyphStyle="-fx-fill:white" size="24" />
+               </graphic>
+            </Button>
+            <FontAwesomeIconView glyphName="MONEY" glyphStyle="-fx-fill: #006BB7" layoutX="1010.0" layoutY="121.0" size="150" wrappingWidth="170.57143020629883" />
          </children>
       </AnchorPane>
    </children>

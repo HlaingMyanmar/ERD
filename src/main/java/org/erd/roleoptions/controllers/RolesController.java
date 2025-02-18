@@ -54,7 +54,6 @@ public class RolesController implements Initializable {
     @FXML
     private TableColumn<Roles, String > statusCol;
 
-
     private final RoleService roleService;
 
     private final Validator validator;
@@ -221,8 +220,6 @@ public class RolesController implements Initializable {
 
     }
 
-
-
     private boolean getConditionCheckboxNoSelection() {
 
 
@@ -232,8 +229,6 @@ public class RolesController implements Initializable {
     }
 
     private int getConditionCheckbox() {
-
-
 
 
         enablecheckbox.setOnAction(event -> {
