@@ -45,7 +45,7 @@ public class Rolesdb implements DataAccessObject<Roles> {
 
     public boolean insertData(Roles roles) {
         Transaction tx = null;
-        try(Session session = sessionFactory.getCurrentSession()) {
+        try(Session session = sessionFactory.openSession()) {
             tx = session.beginTransaction();
             session.persist(roles);
             session.getTransaction().commit();
