@@ -10,16 +10,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import org.erd.roleoptions.models.Roles;
 import org.erd.roleoptions.services.RoleService;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -57,14 +55,19 @@ public class RolesController implements Initializable {
     private TableColumn<Roles, String > statusCol;
 
 
-    private RoleService roleService;
+    private final RoleService roleService;
 
-    private Validator validator;
+    private final Validator validator;
+
+    private List<Roles> rolesList;
 
     public RolesController(RoleService roleService, Validator validator) {
         this.roleService = roleService;
         this.validator = validator;
+        rolesList = new ArrayList<>();
     }
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -88,52 +91,137 @@ public class RolesController implements Initializable {
             String desc  = desctxt.getText();
             byte status = (byte) getConditionCheckbox();
 
+            Roles roles;
 
-           if(!getConditionCheckboxNoSelection()){
+            if (!getConditionCheckboxNoSelection()) {
+                roles = new Roles(role, desc);
+            } else {
+                roles = new Roles(role, desc, status);
+            }
 
+            if (testRoleValidate(roles)){
+                boolean isRoleAdded = roleService.addRole(roles);
+                if (isRoleAdded) {
+                    showInformationDialog("ရာထူး", "အောင်မြင်သည်။", "ရာထူးထည့်ခြင်း အောင်မြင်သည်။");
 
-               Roles roles =  new Roles(role, desc);
+                    setClear();
+                } else {
+                    showErrorDialog("ရာထူး", "မအောင်မြင်ပါ။", "ရာထူးထည့်ခြင်း မအောင်မြင်ပါ။");
+                }
+            } else {
+                showErrorDialog("ရာထူး", "မအောင်မြင်ပါ။", "ရာထူးအချက်အလက် မမှန်ကန်ပါ။");
+            }
 
-               boolean b = testRoleValidate(roles) && roleService.addRole(roles);
+        });
 
-               if(b){
-
-                   showInformationDialog("ရာထူး","အောင်မြင်သည်။","ရာထူးထည့်ခြင်း အောင်မြင်သည်။");
-               }
-
-
-
-
-           }
-           else {
-
-               Roles roles = new Roles(role, desc, status);
-
-               boolean b = testRoleValidate(roles) && roleService.addRole(roles);
-
-               if(b){
-
-                   showInformationDialog("ရာထူး","အောင်မြင်သည်။","ရာထူးထည့်ခြင်း အောင်မြင်သည်။");
-               }
+        roletable.setOnKeyPressed(event -> {
 
 
+            if (event.getCode() == KeyCode.DELETE) {
 
-           }
+                Roles role = roletable.getSelectionModel().getSelectedItem();
+
+                    int id = rolesList.stream()
+                            .filter(roles -> roles.getRole_name().equals(role.getRole_name()))
+                            .map(Roles::getRole_id)
+                            .findFirst().orElse(-1);
+
+                boolean confirmed = showConfirmDialog("ရာထူး","အချက်အလက်","အိုင်ဒီ "+id+ "\n"+"ရာထူး : "+role.getRole_name()+" ကိုဖျက်မှာသေချာပြီလား");
+
+                if ( confirmed){
+
+                    roleService.deleteById(id);
+
+                    showInformationDialog("ရာထူး", "အောင်မြင်သည်။", "ဖျက်ခြင်း အောင်မြင်သည်။");
+                    setClear();
+
+
+                }
+                else {
+
+                    showErrorDialog("ရာထူး", "မအောင်မြင်ပါ။", "ရာထူးပြုပြင်ခြင်း အချက်အလက် မမှန်ကန်ပါ။");
+
+                }
 
 
 
 
 
 
+            }
+
+        });
+
+
+        roletable.setOnMouseClicked(event -> {
+
+            Roles role = roletable.getSelectionModel().getSelectedItem();
+
+
+            if (event.getClickCount() == 2) {
 
 
 
+
+                roletxt.setText(role.getRole_name());
+                desctxt.setText(role.getDescription());
+                if(role.getActivation().equals("သုံးနေဆဲ")){
+
+                    enablecheckbox.setSelected(true);
+                    disablecheckbox.setSelected(false);
+
+                }
+                else {
+                    disablecheckbox.setSelected(true);
+                    enablecheckbox.setSelected(false);
+                }
+
+                editbtn.setOnAction(event1 -> {
+
+
+                    int id = rolesList.stream()
+                            .filter(roles -> roles.getRole_name().equals(role.getRole_name()))
+                            .map(Roles::getRole_id)
+                            .findFirst().orElse(-1);
+
+                    Roles roles = new Roles(id,roletxt.getText(),desctxt.getText(), (byte) getConditionCheckbox());
+
+                    boolean confirmed = showConfirmDialog("ရာထူး","အချက်အလက်","ရာထူးပြုပြင်ခြင်း ပြုလုပ်မှာသေချာပြီလား");
+
+                    if (testRoleValidate(roles) && confirmed){
+
+                            boolean isRoleAdded = roleService.updateRole(roles);
+
+                            if (isRoleAdded) {
+                                showInformationDialog("ရာထူး", "အောင်မြင်သည်။", "ရာထူးပြုပြင်ခြင်း အောင်မြင်သည်။");
+
+                                setClear();
+                            } else {
+                                showErrorDialog("ရာထူး", "မအောင်မြင်ပါ။", "ရာထူးပြုပြင်ခြင်း  မအောင်မြင်ပါ။");
+                            }
+
+                    } else {
+                        showErrorDialog("ရာထူး", "မအောင်မြင်ပါ။", "ရာထူးပြုပြင်ခြင်း အချက်အလက် မမှန်ကန်ပါ။");
+                    }
+
+
+
+
+
+                });
+
+
+             }
 
         });
 
 
 
+
+
     }
+
+
 
     private boolean getConditionCheckboxNoSelection() {
 
@@ -179,38 +267,19 @@ public class RolesController implements Initializable {
 
     private void getLoadRowData() {
 
-        List<Roles> rolesList = new ArrayList<>();
+        rolesList = roleService.getRoleAllData();
 
-//        for(Roles roles : roleService.getRoleAllData())
-//        {
-//
-//            if(roles.getIs_active()==1){
-//
-//                Roles role = new Roles(roles.getRole_name(),roles.getDescription(),"အသုံးပြုနေသည်။");
-//
-//                rolesList.add(role);
-//
-//            }
-//            else {
-//                Roles roles1 =  new Roles(roles.getRole_name(),roles.getDescription(),"အသုံးမပြုတော့ပါ။");
-//
-//                rolesList.add(roles1);
-//            }
-//
-//
-//        }
-
-        rolesList = roleService.getRoleAllData().stream()
+       List<Roles>roleList = roleService.getRoleAllData().stream()
                 .map(roles -> {
 
-                    String status = (roles.getIs_active() == 1) ? "active" : "inactive";
+                    String status = (roles.getIs_active() == 1) ? "သုံးနေဆဲ" : "မသုံးတော့ပါ။";
 
                     return new Roles(roles.getRole_name(), roles.getDescription(), status);
 
                 })
                 .collect(Collectors.toList());
 
-        ObservableList<Roles> data = FXCollections.observableArrayList(rolesList);
+        ObservableList<Roles> data = FXCollections.observableArrayList(roleList);
 
         roletable.setItems(data);
 
@@ -254,6 +323,18 @@ public class RolesController implements Initializable {
 
     }
 
+    private void setClear(){
+
+        roletxt.setText("");
+        desctxt.setText("");
+        enablecheckbox.setSelected(false);
+        disablecheckbox.setSelected(false);
+
+        getLoadRowData();
+
+
+    }
+
     private void showErrorDialog(String title, String header, String content) {
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -273,5 +354,17 @@ public class RolesController implements Initializable {
             alert.setContentText(content);
             alert.showAndWait();
         });
+    }
+
+    private boolean showConfirmDialog(String title, String header, String content) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
+
+
     }
 }

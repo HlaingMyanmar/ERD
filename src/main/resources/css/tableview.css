@@ -32,6 +32,7 @@
     -fx-padding: 8px;
 }
 
+
 /* Row Styling */
 .table-row-cell {
     -fx-background-color: #f8f9fa; /* Slightly lighter gray */
@@ -93,3 +94,7 @@
 .scroll-pane .corner {
     -fx-background-color: transparent;
 }
+.table-row-cell:selected:hover {
+    -fx-background-color: #a3c7ef !important; /* Slightly darker blue for selected rows on hover */
+}
+

@@ -63,4 +63,14 @@ public class Roles {
         this.role_name = role_name;
         this.description = description;
     }
+
+    /*
+    Data Update
+     */
+    public Roles(int role_id, String role_name, String description, byte is_active) {
+        this.role_id = role_id;
+        this.role_name = role_name;
+        this.description = description;
+        this.is_active = is_active;
+    }
 }

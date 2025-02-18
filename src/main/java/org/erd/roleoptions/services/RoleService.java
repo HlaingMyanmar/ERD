@@ -30,4 +30,12 @@ public class RoleService {
 
     }
 
+    public boolean updateRole(Roles role){
+        return rolesdb.updateData(role);
+    }
+
+    public boolean deleteById(int id){
+        return rolesdb.deleteDataById(id);
+    }
+
 }

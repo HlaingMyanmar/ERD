@@ -66,7 +66,7 @@ public class Rolesdb implements DataAccessObject<Roles> {
     public boolean updateData(Roles roles) {
        Transaction tx = null;
 
-       try(Session session = sessionFactory.getCurrentSession()) {
+       try(Session session = sessionFactory.openSession()) {
 
            tx = session.beginTransaction();
            session.merge(roles);
@@ -104,7 +104,7 @@ public class Rolesdb implements DataAccessObject<Roles> {
     public boolean deleteDataById(int id) {
        Transaction tx = null;
 
-        try(Session session = sessionFactory.getCurrentSession()) {
+        try(Session session = sessionFactory.openSession()) {
             Roles roles = session.get(Roles.class, id);
             tx = session.beginTransaction();
             session.remove(roles);

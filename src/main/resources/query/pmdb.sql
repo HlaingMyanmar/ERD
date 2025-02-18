@@ -19,7 +19,7 @@ CREATE TABLE roles (
                        role_id INT PRIMARY KEY AUTO_INCREMENT,
                        role_name VARCHAR(100) UNIQUE NOT NULL,
                        description TEXT,
-                       is_active TINYINT(1) DEFAULT 1
+                       is_active TINYINT(1) DEFAULT 0
 );
 
 CREATE TABLE permissions (
