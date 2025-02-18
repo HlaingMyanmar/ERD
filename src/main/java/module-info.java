@@ -31,15 +31,15 @@ module org.erd {
     opens org.erd.Configuration to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core;
     exports org.erd.Configuration;
 
-    opens org.erd.roleoptions.models to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core;
+    opens org.erd.roleoptions.models to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.roleoptions.models;
 
-    opens org.erd.roleoptions.controllers to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core;
+    opens org.erd.roleoptions.controllers to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.roleoptions.controllers;
 
-    opens org.erd.roleoptions.impls to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core;
+    opens org.erd.roleoptions.impls to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.roleoptions.impls;
 
-    opens org.erd.roleoptions.services to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core;
+    opens org.erd.roleoptions.services to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.roleoptions.services;
 }

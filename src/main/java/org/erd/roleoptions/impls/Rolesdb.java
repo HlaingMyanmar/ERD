@@ -8,11 +8,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
-@Transactional
+
 @Repository
 public class Rolesdb implements DataAccessObject<Roles> {
 

@@ -3,6 +3,7 @@ package org.erd.roleoptions.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,14 +22,33 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int role_id;
 
-    @NotBlank(message = "Require Role Name")
+    @NotBlank(message = "ရာထူး သတ်မှတ်ချက် ထည့်ပါ။")
     @Column(name="role_name",length = 100)
     private String role_name;
 
+    @NotBlank(message = "သက်ဆိုင်ရာ တာဝန်များ ထည့်ပါ။")
     @Column(name = "description",length = 255)
     private String description;
+
 
     @Column(name = "is_active",length = 1)
     private byte is_active;
 
+    private String activation;
+
+
+    /*
+     DataView
+     */
+    public Roles(String role_name, String description, String activation) {
+        this.role_name = role_name;
+        this.description = description;
+        this.activation = activation;
+    }
+    /* Data Insert*/
+    public Roles(String role_name, String description, byte is_active) {
+        this.role_name = role_name;
+        this.description = description;
+        this.is_active = is_active;
+    }
 }
