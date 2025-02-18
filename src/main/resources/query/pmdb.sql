@@ -5,20 +5,14 @@ USE pmdb;
 -- ********************** User & Audit System **********************
 
 
-CREATE TABLE account_types (
-                               account_type_id INT PRIMARY KEY AUTO_INCREMENT,
-                               account_type_name VARCHAR(50) UNIQUE NOT NULL,
-                               description TEXT
-);
 
 
 CREATE TABLE chart_of_accounts (
                                    account_id INT PRIMARY KEY AUTO_INCREMENT,
-                                   account_code VARCHAR(20) UNIQUE NOT NULL,
-                                   account_name VARCHAR(255) NOT NULL,
-                                   account_type_id INT NOT NULL,
-                                   is_active TINYINT(1) DEFAULT 1,
-                                   FOREIGN KEY (account_type_id) REFERENCES account_types(account_type_id)
+                                   account_name VARCHAR(255) UNIQUE NOT NULL,
+                                   account_type varchar(100) NOT NULL,
+                                   is_active TINYINT(1) DEFAULT 1
+
 );
 
 CREATE TABLE roles (

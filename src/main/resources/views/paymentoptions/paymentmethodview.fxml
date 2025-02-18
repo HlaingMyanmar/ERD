@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="382.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erd.roleoptions.controllers.RolesController">
+   <children>
+      <TableView fx:id="roletable" layoutX="4.0" layoutY="4.0" prefHeight="368.0" prefWidth="544.0" stylesheets="@../../css/tableview.css">
+         <columns>
+            <TableColumn fx:id="roleCol" prefWidth="144.0" text="ငွေပေးချေခြင်း  ကုဒ်" />
+            <TableColumn fx:id="descCol" prefWidth="178.0" text="ငွေပေးချေခြင်း နည်းလမ်း" />
+            <TableColumn fx:id="statusCol" prefWidth="128.0" text="Online / Offline" />
+            <TableColumn fx:id="statusCol1" prefWidth="92.0" text="အခြေအနေ" />
+         </columns>
+      </TableView>
+      <VBox layoutX="559.0" layoutY="9.0" prefHeight="313.0" prefWidth="304.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css">
+         <children>
+            <TextField fx:id="roletxt" prefHeight="40.0" prefWidth="284.0" promptText="ငွေပေးချေခြင်း  ကုဒ်">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="roletxt1" layoutX="30.0" layoutY="20.0" prefHeight="42.0" prefWidth="284.0" promptText="ရာထူငွေပေးချေခြင်း နည်းလမ်းး">
+               <font>
+                  <Font name="Pyidaungsu" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+               </VBox.margin>
+            </TextField>
+            <HBox prefHeight="43.0" prefWidth="304.0">
+               <children>
+                  <JFXCheckBox fx:id="enablecheckbox" text="Online">
+                     <font>
+                        <Font name="Pyidaungsu" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXCheckBox>
+                  <JFXCheckBox fx:id="disablecheckbox" layoutX="10.0" layoutY="10.0" text="Offline">
+                     <font>
+                        <Font name="Pyidaungsu" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXCheckBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="94.0" prefHeight="43.0" prefWidth="304.0">
+               <children>
+                  <JFXCheckBox fx:id="enablecheckbox1" text="ဖွင့်မည်။">
+                     <font>
+                        <Font name="Pyidaungsu" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXCheckBox>
+                  <JFXCheckBox fx:id="disablecheckbox1" layoutX="10.0" layoutY="10.0" text="ပိတ်မည်။">
+                     <font>
+                        <Font name="Pyidaungsu" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXCheckBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <Button fx:id="insertbtn" layoutX="556.0" layoutY="327.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" stylesheets="@../../css/btn2.css" text="အသစ်ထည့်မည်။">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+         <graphic>
+            <FontAwesomeIconView glyphName="SAVE" glyphStyle="-fx-fill:white" size="24" />
+         </graphic>
+      </Button>
+      <Button fx:id="editbtn" layoutX="722.0" layoutY="327.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="141.0" stylesheets="@../../css/btn2.css" text="ပြုပြင်မည်။">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+         <padding>
+            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+         </padding>
+         <graphic>
+            <FontAwesomeIconView glyphName="EDIT" glyphStyle="-fx-fill:white" size="24" />
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
