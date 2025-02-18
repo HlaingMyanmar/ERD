@@ -32,17 +32,20 @@ public class Rolesdb implements DataAccessObject<Roles> {
 
     @Override
     public Roles findDataById(int id) {
-        return null;
+
+       try (Session session = sessionFactory.openSession()) {
+           return session.get(Roles.class, id);
+
+       }catch (Exception e) {
+           return null;
+       }
     }
 
     @Override
 
     public boolean insertData(Roles roles) {
-
         Transaction tx = null;
-
         try(Session session = sessionFactory.getCurrentSession()) {
-
             tx = session.beginTransaction();
             session.persist(roles);
             session.getTransaction().commit();
@@ -61,20 +64,56 @@ public class Rolesdb implements DataAccessObject<Roles> {
 
     @Override
     public boolean updateData(Roles roles) {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        session.update(roles);
+       Transaction tx = null;
 
-        return false;
-    }
+       try(Session session = sessionFactory.getCurrentSession()) {
+
+           tx = session.beginTransaction();
+           session.merge(roles);
+           session.getTransaction().commit();
+           return true;
+
+       }catch (Exception e) {
+           tx.rollback();
+           return false;
+       }
+
+
+       }
 
     @Override
     public boolean deleteData(Roles roles) {
-        return false;
+
+       Transaction tx = null;
+       try(Session session = sessionFactory.getCurrentSession()) {
+
+           tx = session.beginTransaction();
+           session.remove(roles);
+           session.getTransaction().commit();
+           return true;
+
+       }catch (Exception e) {
+
+           tx.rollback();
+           return false;
+       }
+
     }
 
     @Override
     public boolean deleteDataById(int id) {
+       Transaction tx = null;
+
+        try(Session session = sessionFactory.getCurrentSession()) {
+            Roles roles = session.get(Roles.class, id);
+            tx = session.beginTransaction();
+            session.remove(roles);
+            session.getTransaction().commit();
+            return true;
+
+        }catch (Exception e) {
+            tx.rollback();
+        }
         return false;
     }
 }
