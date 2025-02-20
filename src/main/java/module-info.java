@@ -42,4 +42,5 @@ module org.erd {
 
     opens org.erd.roleoptions.services to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.roleoptions.services;
+
 }

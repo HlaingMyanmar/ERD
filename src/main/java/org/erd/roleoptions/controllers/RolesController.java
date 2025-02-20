@@ -248,9 +248,6 @@ public class RolesController implements Initializable {
             disablecheckbox.setSelected(true);
 
 
-
-
-
         });
 
 
