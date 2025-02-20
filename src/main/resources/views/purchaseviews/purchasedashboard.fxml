@@ -2,24 +2,20 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="689.0" prefWidth="1251.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.purchaseviews.Purchasedashboard">
    <children>
-      <AnchorPane layoutX="1.0" layoutY="1.0" prefHeight="75.0" prefWidth="1261.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css">
+      <AnchorPane layoutX="1.0" layoutY="1.0" prefHeight="54.0" prefWidth="1261.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css">
          <children>
-            <Button layoutX="29.0" layoutY="13.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="131.0" stylesheets="@../../css/btn2.css" text="အသစ်ဝယ်မည်။">
-               <font>
-                  <Font name="Pyidaungsu Bold" size="12.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIconView glyphName="CART_PLUS" glyphStyle="-fx-fill:white" size="24" />
-               </graphic>
-            </Button>
-            <Button layoutX="168.0" layoutY="13.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="131.0" stylesheets="@../../css/btn2.css" text="အသစ်ဝယ်မည်။">
+            <Button layoutX="9.0" layoutY="6.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="131.0" stylesheets="@../../css/btn2.css" text="အသစ်ဝယ်မည်။">
                <font>
                   <Font name="Pyidaungsu Bold" size="12.0" />
                </font>
@@ -29,30 +25,73 @@
             </Button>
          </children>
       </AnchorPane>
-      <TextField fx:id="roletxt1" layoutX="298.0" layoutY="205.0" prefHeight="32.0" prefWidth="178.0" promptText="အဝယ်ကုဒ်">
+      <TextField fx:id="roletxt1" layoutX="14.0" layoutY="114.0" prefHeight="32.0" prefWidth="230.0" promptText="အဝယ်ကုဒ်">
          <font>
             <Font name="Pyidaungsu" size="12.0" />
          </font>
       </TextField>
-      <Label layoutX="232.0" layoutY="231.0" prefHeight="20.0" prefWidth="59.0" text="ရက်စွဲ">
+      <Label layoutX="252.0" layoutY="91.0" prefHeight="20.0" prefWidth="112.0" style="-fx-text-fill: #0066AE;" text="ရောင်းသူဖြင့်ရှာဖွေခြင်း">
          <font>
             <Font name="Pyidaungsu Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="roletxt" layoutX="66.0" layoutY="251.0" prefHeight="32.0" prefWidth="178.0" promptText="အဝယ်ကုဒ်">
-         <font>
-            <Font name="Pyidaungsu" size="12.0" />
-         </font>
-      </TextField>
-      <Label layoutX="176.0" layoutY="157.0" prefHeight="20.0" prefWidth="59.0" text="အဝယ်ကုဒ်">
+      <Label layoutX="15.0" layoutY="92.0" prefHeight="20.0" prefWidth="59.0" style="-fx-text-fill: #0066AE;" text="ရှာဖွေပါ။">
          <font>
             <Font name="Pyidaungsu Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="roletxt2" layoutX="76.0" layoutY="261.0" prefHeight="32.0" prefWidth="178.0" promptText="အဝယ်ကုဒ်">
+      <TextField fx:id="roletxt2" layoutX="474.0" layoutY="113.0" prefHeight="32.0" prefWidth="178.0" promptText="Transaction ဖြင့်ရှာဖွေခြင်း">
          <font>
             <Font name="Pyidaungsu" size="12.0" />
          </font>
       </TextField>
+      <ComboBox layoutX="252.0" layoutY="113.0" prefHeight="32.0" prefWidth="214.0" promptText="ကျေးဇူးပြု၍ ရောင်းသူ အမည်ရွေးပါ" />
+      <Label layoutX="474.0" layoutY="91.0" prefHeight="20.0" prefWidth="131.0" style="-fx-text-fill: #0066AE;" text="Transaction ဖြင့်ရှာဖွေခြင်း">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Label>
+      <DatePicker layoutX="659.0" layoutY="113.0" prefHeight="32.0" prefWidth="144.0" />
+      <Label layoutX="659.0" layoutY="91.0" prefHeight="20.0" prefWidth="131.0" style="-fx-text-fill: #0066AE;" text="မှ အဝယ်ရက်စွဲ">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Label>
+      <DatePicker layoutX="810.0" layoutY="113.0" prefHeight="32.0" prefWidth="144.0" />
+      <Label layoutX="810.0" layoutY="91.0" prefHeight="20.0" prefWidth="131.0" style="-fx-text-fill: #0066AE;" text="သို့ အဝယ်ရက်စွဲ">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="961.0" layoutY="90.0" prefHeight="20.0" prefWidth="131.0" style="-fx-text-fill: #0066AE;" text="ငွေပေးချေခြင်း အခြေအနေ">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+      </Label>
+      <ComboBox layoutX="961.0" layoutY="112.0" prefHeight="32.0" prefWidth="178.0" promptText="ငွေပေးချေခြင်း အခြေအနေ" />
+      <Button layoutX="1150.0" layoutY="105.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" stylesheets="@../../css/btn2.css" text="ရှာဖွေပါ။">
+         <font>
+            <Font name="Pyidaungsu Bold" size="12.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView glyphName="SEARCH" glyphStyle="-fx-fill:white" size="24" />
+         </graphic>
+      </Button>
+      <TableView layoutX="11.0" layoutY="155.0" prefHeight="381.0" prefWidth="1238.0" stylesheets="@../../css/tableview.css">
+         <columns>
+            <TableColumn prefWidth="47.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="CHECK_CIRCLE" glyphStyle="-fx-fill:white" size="24" />
+               </graphic>
+            </TableColumn>
+            <TableColumn prefWidth="158.0" text="အဝယ်ကုဒ်" />
+            <TableColumn prefWidth="126.0" text="ရက်စွဲ" />
+            <TableColumn prefWidth="350.0" text="အကြောင်းအရာ" />
+            <TableColumn prefWidth="170.0" text="ရောင်းချသူ" />
+            <TableColumn prefWidth="164.0" text="Transaction ကုဒ်" />
+            <TableColumn prefWidth="109.0" text="ငွေပေးချေခြင်း" />
+            <TableColumn prefWidth="113.0" text="စုစုပေါင်းပမဏ" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>
