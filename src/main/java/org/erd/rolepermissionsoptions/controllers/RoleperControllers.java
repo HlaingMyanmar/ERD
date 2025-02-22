@@ -1,5 +1,6 @@
 package org.erd.rolepermissionsoptions.controllers;
 
+import com.jfoenix.controls.JFXComboBox;
 import jakarta.validation.Validator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import org.erd.rolepermissionsoptions.services.RoleperService;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -37,7 +39,8 @@ public class RoleperControllers implements Initializable {
     private Button removebtn;
 
     @FXML
-    private ComboBox<String> rolelistCmboBox;
+    private JFXComboBox<String> rolelistCmboBox;
+
 
     @FXML
     private TableColumn<RolePermissions,String> roleperCol;
@@ -64,7 +67,33 @@ public class RoleperControllers implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         getRolesData();
-       setComboboxRoleData();
+        setComboboxRoleData();
+
+        rolelistCmboBox.setOnKeyReleased(event -> {
+
+
+            selectedRolesgetPermissionName(role)
+
+
+
+        });
+
+    }
+
+    private ObservableList<String> selectedRolesgetPermissionName(String roleName){
+
+
+
+        int id = getRoleID(roleName);
+
+
+        return FXCollections.observableArrayList(roleperService.getRolePerAllData()
+                .stream()
+                .filter(rp -> rp.getRoles().getRole_id() == id)
+                .map(RolePermissions::getPermission)
+                .map(Permissions::getPermission_name).toString()).sorted();
+
+
     }
 
     private void setComboboxRoleData(){
@@ -73,23 +102,25 @@ public class RoleperControllers implements Initializable {
                 .map(Roles::getRole_name)
                 .toList();
 
-
         ObservableList<String> roles = FXCollections.observableArrayList(roleName);
 
-        System.out.println(roles.size());
-
-
         rolelistCmboBox.setItems(roles);
+
+
 
     }
 
     private List<Roles> getRolesData(){
 
-        System.out.println(roleService.getRoleAllData().size());
-
         return  roleService.getRoleAllData();
+    }
+
+    private int getRoleID(String roleName){
 
 
+        return getRolesData().stream()
+                .filter(roles -> roles.getRole_name().equals(roleName))
+                .map(Roles::getRole_id).findFirst().orElse(-1);
 
     }
 }
