@@ -109,6 +109,37 @@ public class RoleperControllers implements Initializable {
 
         });
 
+
+        removebtn.setOnAction(event -> {
+
+            Permissions selectedIndex =  permissiontable.getSelectionModel().getSelectedItem();
+
+            Permissions permission =  getPermission(selectedIndex.getPermission_name());
+
+            Roles role = getRole(rolelistCmboBox.getValue());
+
+
+
+
+
+
+            boolean b = roleperService.deleteRolePer(new RolePermissions(getRolePermissionID(role.getRole_id(),permission.getPermission_id()),role, permission));
+
+
+            if(b){
+
+                showInformationDialog("ခွင့်ပြုချက်များ", "အောင်မြင်သည်", "ဖျက်ပြီးပါပြီ");
+
+                getAllDataLoad(rolelistCmboBox.getValue());
+
+            }
+
+
+
+
+
+        });
+
     }
 
     private void getAllDataLoad(String role){
@@ -232,6 +263,15 @@ public class RoleperControllers implements Initializable {
         return getRolesData().stream()
                 .filter(roles -> roles.getRole_name().equals(roleName))
                 .findFirst().orElse(null);
+
+    }
+
+    private int getRolePermissionID(int roleID, int permissionID){
+
+        return  roleperService.getRolePerAllData().stream()
+                .filter(rolePermissions -> rolePermissions.getRoles().getRole_id()==roleID && rolePermissions.getPermission().getPermission_id()==permissionID)
+                .map(RolePermissions::getRole_permission_id).findFirst().orElse(-1);
+
 
     }
 
