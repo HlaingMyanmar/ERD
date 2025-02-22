@@ -100,41 +100,49 @@ public class RoleperControllers implements Initializable {
 
 
 
-           roleperService.addRolePer(new RolePermissions(role, permission));
+          boolean b = roleperService.addRolePer(new RolePermissions(role, permission));
 
-           showInformationDialog("ခွင့်ပြုချက်များ", "အောင်မြင်သည်", "ခွင့်ပြုချက်အောင်မြင်သည်။");
+          if(b) {
 
-            getAllDataLoad(rolelistCmboBox.getValue());
+              showInformationDialog("ခွင့်ပြုချက်များ", "အောင်မြင်သည်", "ခွင့်ပြုချက်အောင်မြင်သည်။");
 
+              getAllDataLoad(rolelistCmboBox.getValue());
+
+
+          }else{
+
+
+              showErrorDialog("ခွင့်ပြုချက်များ", "မအောင်မြင်ပါ။", "ခွင့်ပြုချက်ထည့်သွင်းခြင်းမအောင်မြင်ပါ။");
+
+
+          }
 
         });
 
 
         removebtn.setOnAction(event -> {
 
-            Permissions selectedIndex =  permissiontable.getSelectionModel().getSelectedItem();
+            Permissions selectedIndex = permissiontable.getSelectionModel().getSelectedItem();
 
-            Permissions permission =  getPermission(selectedIndex.getPermission_name());
+            Permissions permission = getPermission(selectedIndex.getPermission_name());
 
             Roles role = getRole(rolelistCmboBox.getValue());
 
 
+            boolean b = roleperService.deleteRolePer(new RolePermissions(getRolePermissionID(role.getRole_id(), permission.getPermission_id()), role, permission));
 
 
-
-
-            boolean b = roleperService.deleteRolePer(new RolePermissions(getRolePermissionID(role.getRole_id(),permission.getPermission_id()),role, permission));
-
-
-            if(b){
+            if (b) {
 
                 showInformationDialog("ခွင့်ပြုချက်များ", "အောင်မြင်သည်", "ဖျက်ပြီးပါပြီ");
 
                 getAllDataLoad(rolelistCmboBox.getValue());
 
+            }else {
+
+                showErrorDialog("ခွင့်ပြုချက်များ","မအောင်မြင်ပါ","ခွင့်ပြုချက်များဖျက်ခြင်းမအောင်မြင်ပါ");
+
             }
-
-
 
 
 
