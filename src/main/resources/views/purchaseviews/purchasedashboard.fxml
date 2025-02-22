@@ -93,5 +93,11 @@
             <TableColumn prefWidth="113.0" text="စုစုပေါင်းပမဏ" />
          </columns>
       </TableView>
+      <TableView layoutX="11.0" layoutY="581.0" prefHeight="83.0" prefWidth="200.0" rotate="-0.7">
+        <columns>
+          <TableColumn prefWidth="75.0" text="စုစုပေါင်း" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

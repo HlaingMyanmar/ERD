@@ -54,7 +54,6 @@ CREATE TABLE role_permissions (
                                   role_permission_id INT PRIMARY KEY AUTO_INCREMENT,
                                   role_id INT NOT NULL,
                                   permission_id INT NOT NULL,
-                                  is_active TINYINT(1) DEFAULT 1,
                                   FOREIGN KEY (role_id) REFERENCES roles(role_id) ON DELETE CASCADE ON UPDATE CASCADE,
                                   FOREIGN KEY (permission_id) REFERENCES permissions(permission_id) ON DELETE CASCADE ON UPDATE CASCADE,
                                   UNIQUE (role_id, permission_id)

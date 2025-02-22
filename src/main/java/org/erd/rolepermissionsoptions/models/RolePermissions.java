@@ -32,8 +32,7 @@ public class RolePermissions {
     @JoinColumn(name="permission_id",nullable = false)
     private Permissions permission;
 
-    @Column(name="is_active",length=1)
-    private byte is_active;
+
 
 
 

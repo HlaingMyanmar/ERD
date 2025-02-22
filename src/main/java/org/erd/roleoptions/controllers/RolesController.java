@@ -18,7 +18,6 @@ import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Controller
@@ -67,7 +66,9 @@ public class RolesController implements Initializable {
     }
 
 
-
+    /**
+     * Sets up the initial state for the roles table, including column setup and data loading.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
