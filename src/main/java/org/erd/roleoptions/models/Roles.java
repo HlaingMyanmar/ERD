@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.erd.rolepermissionsoptions.models.RolePermissions;
+import org.erd.useroptions.models.Users;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -35,6 +36,10 @@ public class Roles {
 
     @OneToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<RolePermissions> role_permissions;
+
+    @ManyToOne
+    @JoinColumn(name ="user_id",nullable = false)
+    private Users users;
 
 
     private String activation;
