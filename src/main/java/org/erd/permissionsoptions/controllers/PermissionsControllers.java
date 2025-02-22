@@ -10,17 +10,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import org.erd.permissionsoptions.models.Permissions;
 import org.erd.permissionsoptions.services.PermissionsService;
+import org.springframework.stereotype.Controller;
 
 import java.net.URL;
-import java.security.Permission;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+@Controller
 public class PermissionsControllers implements Initializable {
 
+    private final Permissions permissions;
     @FXML
     private TableColumn<Permissions, String> desCol;
 
@@ -57,10 +61,11 @@ public class PermissionsControllers implements Initializable {
 
     private List<Permissions> permissionsList;
 
-    public PermissionsControllers(PermissionsService permissionsService, Validator validator) {
+    public PermissionsControllers(PermissionsService permissionsService, Validator validator, Permissions permissions) {
         this.permissionsService = permissionsService;
         this.validator = validator;
         permissionsList = new ArrayList<>();
+        this.permissions = permissions;
     }
 
 
@@ -114,8 +119,105 @@ public class PermissionsControllers implements Initializable {
 
         });
 
+        pertable.setOnKeyReleased(event -> {
+
+            if (event.getCode() == KeyCode.DELETE) {
+
+                Permissions pe = pertable.getSelectionModel().getSelectedItem();
+
+                int id = permissionsList.stream()
+                        .filter(permissions1 -> permissions1.getPermission_name().equals(pe.getPermission_name()))
+                        .map(Permissions::getPermission_id)
+                        .findFirst().orElse(-1);
 
 
+                boolean cofirmed = showConfirmDialog("ခွင့်ပြုချက်ပုံစံ","အချက်အလက်","အိုင်ဒီ" + id + "\n"+ "ခွင့်ပြုချက်ပုံစံ"+pe.getPermission_name()+"ကိုဖျက်မှာသေချာပြီလား");
+
+                if (cofirmed) {
+
+                    permissionsService.deleteByID(id);
+
+                    showInformationDialog("ခွင့်ပြုချက်ပုံစံ","အောင်မြင်သည်","ဖျက်ခြင်းအောင်မြင်သည်");
+
+                    setClear();
+                }else{
+
+                    showErrorDialog("ခွင့်ပြုချက်ပုံစံ","မအောင်မြင်ပါ။","ခွင့်ပြုချက်ပုံစံ ဖျက်ခြင်း မအောင်မြင်ပါ။");
+
+                }
+
+
+            }
+
+
+
+
+
+
+        });
+
+
+        pertable.setOnMouseClicked(event -> {
+
+            Permissions pe = pertable.getSelectionModel().getSelectedItem();
+
+            if(event.getClickCount() == 2){
+
+                pertxt.setText(pe.getPermission_name());
+                desctxt.setText(pe.getDescription());
+
+                if(pe.getActivation().equals("သုံးနေဆဲ")){
+
+                    enablecheckbox.setSelected(true);
+                    disablecheckbox.setSelected(false);
+
+                }else {
+
+                    enablecheckbox.setSelected(false);
+                    disablecheckbox.setSelected(true);
+                }
+
+                editbtn.setOnAction(event1 -> {
+
+                    int id = permissionsList.stream()
+                            .filter(permissions -> permissions.getPermission_name().equals(pe.getPermission_name()))
+                            .map(Permissions::getPermission_id)
+                            .findFirst().orElse(-1);
+
+                    Permissions permissions = new Permissions(id,pertxt.getText(),desctxt.getText(),(byte)getConnectionCheckBox());
+
+                    boolean cofirmed = showConfirmDialog("ခွင့်ပြုချက်ပုံစံ","ရာထူးခွင့်ပြူချက်ပုံစံ","ခွင့်ပြုချက်ပုံစံပြုပြင်ခြင်း ပြုပြင်မှာသေချာပြီလား");
+
+                    if(testPerssionsValidate(permissions) && cofirmed) {
+
+                        boolean isPermissionadd = permissionsService.updatePermissions(permissions);
+
+                        if (isPermissionadd) {
+
+                            showInformationDialog("ခွင့်ပြုချက်ပုံစံ", "အောင်မြင်သည်", "ခွင့်ပြုချက်ပုံစံပြုပြင်ခြင်း အောင်မြင်သည်");
+
+                            setClear();
+
+                        } else {
+
+                            showErrorDialog("ခွင့်ပြုချက်ပုံစံ", "မအောင်မြင်ပါ။", "ခွင့်ပြုချက်ပုံစံပြုပြင်ခြင်း မအောင်မြင်ပါ။");
+
+                        }
+
+                    }else{
+
+                        showErrorDialog("ခွင့်ပြုချက်ပုံစ","မအောင်မြင်ပါ။","ခွင့်ပြုချက်ပုံစံပြုပြင်ခြင်း အချက်အလက် မမှန်ကန်ပါ။");
+
+
+                    }
+
+
+                });
+
+
+            }
+
+        });
 
 
 
@@ -229,6 +331,17 @@ public class PermissionsControllers implements Initializable {
         alert.setContentText(content);
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.OK;
+
+
+    }
+    private void setClear(){
+
+        pertxt.setText("");
+        desctxt.setText("");
+        enablecheckbox.setSelected(false);
+        disablecheckbox.setSelected(false);
+
+        getLoadRowData();
 
 
     }

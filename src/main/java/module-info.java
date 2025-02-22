@@ -24,6 +24,7 @@ module org.erd {
     requires jakarta.transaction;
     requires jakarta.cdi;
     requires jfxtras.controls;
+    requires com.google.protobuf;
 
     opens org.erd to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core;
     exports org.erd;
@@ -42,5 +43,46 @@ module org.erd {
 
     opens org.erd.roleoptions.services to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.roleoptions.services;
+
+    opens org.erd.permissionsoptions.models to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.permissionsoptions.models;
+
+    opens org.erd.permissionsoptions.controllers to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.permissionsoptions.controllers;
+
+    opens org.erd.permissionsoptions.impls to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.permissionsoptions.impls;
+
+    opens org.erd.permissionsoptions.services to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.permissionsoptions.services;
+
+    opens org.erd.rolepermissionsoptions.models to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.rolepermissionsoptions.models;
+
+    opens org.erd.rolepermissionsoptions.controllers to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.rolepermissionsoptions.controllers;
+
+    opens org.erd.rolepermissionsoptions.impls to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.rolepermissionsoptions.impls;
+
+    opens org.erd.rolepermissionsoptions.services to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.rolepermissionsoptions.services;
+
+    opens org.erd.useroptions.models to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.useroptions.models;
+
+    opens org.erd.useroptions.controllers to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.useroptions.controllers;
+
+    opens org.erd.useroptions.impls to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.useroptions.impls;
+
+    opens org.erd.useroptions.services to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.useroptions.services;
+
+
+
+
+
 
 }

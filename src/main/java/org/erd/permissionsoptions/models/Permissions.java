@@ -5,7 +5,10 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.erd.rolepermissionsoptions.models.RolePermissions;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -29,6 +32,9 @@ public class Permissions {
 
     @Column(name = "is_active",length=1)
     private byte is_active;
+
+    @OneToMany(mappedBy = "permission", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<RolePermissions> role_permissions;
 
     private String activation;
 

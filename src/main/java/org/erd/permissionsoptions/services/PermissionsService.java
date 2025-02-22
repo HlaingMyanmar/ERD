@@ -2,9 +2,11 @@ package org.erd.permissionsoptions.services;
 
 import org.erd.permissionsoptions.impls.Permissionsdb;
 import org.erd.permissionsoptions.models.Permissions;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PermissionsService {
 
     private Permissionsdb permissionsdb;

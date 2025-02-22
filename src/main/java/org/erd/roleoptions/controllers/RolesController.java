@@ -160,8 +160,6 @@ public class RolesController implements Initializable {
             if (event.getClickCount() == 2) {
 
 
-
-
                 roletxt.setText(role.getRole_name());
                 desctxt.setText(role.getDescription());
                 if(role.getActivation().equals("သုံးနေဆဲ")){
