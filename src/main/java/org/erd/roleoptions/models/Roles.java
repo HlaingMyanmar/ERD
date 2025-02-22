@@ -37,10 +37,6 @@ public class Roles {
     @OneToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<RolePermissions> role_permissions;
 
-    @ManyToOne
-    @JoinColumn(name ="user_id",nullable = false)
-    private Users users;
-
 
     private String activation;
 

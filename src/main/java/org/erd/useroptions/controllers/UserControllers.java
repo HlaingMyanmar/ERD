@@ -57,6 +57,7 @@ public class UserControllers implements Initializable {
             String pass = passtxt.getText();
             byte status = (byte) getConditionCheckbox();
 
+
             Users user;
 
             if(!getConditionCheckboxNoSelection()){

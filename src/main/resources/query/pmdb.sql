@@ -33,10 +33,9 @@ CREATE TABLE users (
                        user_id INT PRIMARY KEY AUTO_INCREMENT,
                        username VARCHAR(50) UNIQUE NOT NULL,
                        password VARCHAR(255) NOT NULL,
-                       role_id INT NOT NULL,
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                       is_active TINYINT(1) DEFAULT 1,
-                       FOREIGN KEY (role_id) REFERENCES roles(role_id)
+                       is_active TINYINT(1) DEFAULT 1
+
 );
 
 CREATE TABLE user_roles (
