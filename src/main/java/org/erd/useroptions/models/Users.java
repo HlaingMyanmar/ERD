@@ -3,18 +3,19 @@ package org.erd.useroptions.models;
 import com.google.protobuf.Timestamp;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.erd.roleoptions.models.Roles;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
-
-@Getter
-@Setter
+@Entity
+@Component
+@Getter@Setter
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name="users")
 public class Users {
 
     @Id
@@ -29,17 +30,24 @@ public class Users {
     @Column(name="password",length = 50)
     private String password;
 
-    @OneToMany(mappedBy ="users",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Set<Roles> role;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Roles role;
 
     private Timestamp crated_at;
 
     @Column(name="is_active",length = 1)
     private byte is_active;
 
+
     public Users(String user_name, String password, byte is_active) {
         this.user_name = user_name;
         this.password = password;
         this.is_active = is_active;
+    }
+
+    public Users(String user_name, String password) {
+        this.user_name = user_name;
+        this.password = password;
     }
 }
