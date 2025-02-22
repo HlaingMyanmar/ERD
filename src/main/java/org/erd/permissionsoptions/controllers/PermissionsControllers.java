@@ -108,6 +108,9 @@ public class PermissionsControllers implements Initializable {
 
                   showInformationDialog("ရာထူးခွင့်ပြုချက်", "အောင်မြင်သည်", "ရာထူးခွင့်ပြုချက်အောင်မြင်သည်။");
 
+                  getLoadRowData();setClear();
+
+
 
               } else {
                   showErrorDialog("ရာထူးခွင့်ပြုချက်", "မမှန်ကန်ပါ", "ရာထူးခွင့်ပြုချက် မအောင်မြင်ပါ။");

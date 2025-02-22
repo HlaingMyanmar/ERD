@@ -2,16 +2,15 @@ package org.erd.rolepermissionsoptions.controllers;
 
 import com.jfoenix.controls.JFXComboBox;
 import jakarta.validation.Validator;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Modality;
 import org.erd.permissionsoptions.models.Permissions;
 import org.erd.permissionsoptions.services.PermissionsService;
 import org.erd.roleoptions.models.Roles;
@@ -21,14 +20,12 @@ import org.erd.rolepermissionsoptions.services.RoleperService;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
 public class RoleperControllers implements Initializable {
+    private final Roles roles;
     @FXML
     private Button insertbtn;
 
@@ -59,11 +56,12 @@ public class RoleperControllers implements Initializable {
 
     private final PermissionsService permissionsService;
 
-    public RoleperControllers(RoleperService roleperService, Validator validator, RoleService roleService, PermissionsService permissionsService) {
+    public RoleperControllers(RoleperService roleperService, Validator validator, RoleService roleService, PermissionsService permissionsService, Roles roles) {
         this.roleperService = roleperService;
         this.validator = validator;
         this.roleService = roleService;
         this.permissionsService = permissionsService;
+        this.roles = roles;
     }
 
     @Override
@@ -83,16 +81,41 @@ public class RoleperControllers implements Initializable {
 
                 permissiontable.getItems().clear();
 
-                permissiontable.setItems(selectedRolesgetPermissionName(rolelistCmboBox.getValue()));
-
-               // System.out.println(selectedRoleswithoutPermissionName(rolelistCmboBox.getValue()).size());
-
-                rolepermissiontable.setItems(selectedRoleswithoutPermissionName(rolelistCmboBox.getValue()));
+                getAllDataLoad(rolelistCmboBox.getValue());
 
             }
 
 
         });
+
+        insertbtn.setOnAction(event -> {
+
+
+           Permissions selectedIndex =  rolepermissiontable.getSelectionModel().getSelectedItem();
+
+           Permissions permission =  getPermission(selectedIndex.getPermission_name());
+
+           Roles role = getRole(rolelistCmboBox.getValue());
+
+
+
+
+           roleperService.addRolePer(new RolePermissions(role, permission));
+
+           showInformationDialog("ခွင့်ပြုချက်များ", "အောင်မြင်သည်", "ခွင့်ပြုချက်အောင်မြင်သည်။");
+
+            getAllDataLoad(rolelistCmboBox.getValue());
+
+
+        });
+
+    }
+
+    private void getAllDataLoad(String role){
+
+        permissiontable.setItems(selectedRolesgetPermissionName(role));
+
+        rolepermissiontable.setItems(selectedRoleswithoutPermissionName(role));
 
     }
 
@@ -191,6 +214,57 @@ public class RoleperControllers implements Initializable {
         return getRolesData().stream()
                 .filter(roles -> roles.getRole_name().equals(roleName))
                 .map(Roles::getRole_id).findFirst().orElse(-1);
+
+    }
+
+    private Permissions getPermission(String permissionName){
+
+        return permissionsService.getAllData().stream()
+                .filter(permissions -> permissions.getPermission_name().equals(permissionName))
+                .findFirst().orElse(null);
+
+
+    }
+
+    private Roles getRole(String roleName){
+
+
+        return getRolesData().stream()
+                .filter(roles -> roles.getRole_name().equals(roleName))
+                .findFirst().orElse(null);
+
+    }
+
+    private void showErrorDialog(String title, String header, String content) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(header);
+            alert.setContentText(content);
+            alert.showAndWait();
+        });
+    }
+
+    private void showInformationDialog(String title, String header, String content) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.setTitle(title);
+            alert.setHeaderText(header);
+            alert.setContentText(content);
+            alert.showAndWait();
+        });
+    }
+
+    private boolean showConfirmDialog(String title, String header, String content) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
+
 
     }
 }

@@ -2,21 +2,13 @@ package org.erd.roleoptions.models;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.erd.rolepermissionsoptions.models.RolePermissions;
-import org.erd.useroptions.models.Users;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
 import java.util.Set;
-
-@Data
+@Getter@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

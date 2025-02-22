@@ -33,7 +33,8 @@ public class RolePermissions {
     private Permissions permission;
 
 
-
-
-
+    public RolePermissions(Roles roles, Permissions permission) {
+        this.roles = roles;
+        this.permission = permission;
+    }
 }

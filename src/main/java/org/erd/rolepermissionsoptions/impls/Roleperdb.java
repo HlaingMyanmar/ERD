@@ -59,6 +59,8 @@ public class Roleperdb implements DataAccessObject<RolePermissions> {
 
     }
 
+
+
     @Override
     public boolean updateData(RolePermissions rolePermissions) {
         Transaction tx = null;
