@@ -80,6 +80,18 @@ module org.erd {
     opens org.erd.useroptions.services to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.useroptions.services;
 
+    opens org.erd.categoryoptions.model to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.categoryoptions.model;
+
+    opens org.erd.categoryoptions.controller to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.categoryoptions.controller;
+
+    opens org.erd.categoryoptions.impl to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.categoryoptions.impl;
+
+    opens org.erd.categoryoptions.service to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.categoryoptions.service;
+
 
 
 

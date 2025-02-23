@@ -15,7 +15,7 @@
    <children>
       <VBox layoutX="14.0" layoutY="13.0" prefHeight="154.0" prefWidth="304.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css">
          <children>
-            <TextField fx:id="usertxt" promptText="ရာထူခွင့်ပြုချက်ပုံစံး">
+            <TextField fx:id="usertxt" promptText="အသုံးပြုသူအမည်ထည့်ပါ">
                <font>
                   <Font name="Pyidaungsu" size="12.0" />
                </font>
