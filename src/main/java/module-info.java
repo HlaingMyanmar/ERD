@@ -92,6 +92,19 @@ module org.erd {
     opens org.erd.categoryoptions.service to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.categoryoptions.service;
 
+    opens org.erd.chartofaccountoptions.service to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.chartofaccountoptions.service;
+
+    opens org.erd.chartofaccountoptions.model to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.chartofaccountoptions.model;
+
+    opens org.erd.chartofaccountoptions.controller to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.chartofaccountoptions.controller;
+
+    opens org.erd.chartofaccountoptions.impl to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.chartofaccountoptions.impl;
+
+
 
 
 

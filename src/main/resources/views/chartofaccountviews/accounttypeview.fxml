@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="356.0" prefWidth="1031.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erd.roleoptions.controllers.RolesController">
+<AnchorPane prefHeight="356.0" prefWidth="1031.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erd.chartofaccountoptions.controller.ChartOfAccountsController">
    <children>
       <TableView fx:id="roletable" layoutX="6.0" layoutY="14.0" prefHeight="324.0" prefWidth="687.0" stylesheets="@../../css/tableview.css">
          <columns>
