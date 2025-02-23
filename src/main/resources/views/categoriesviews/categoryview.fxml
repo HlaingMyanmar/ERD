@@ -13,15 +13,15 @@
 
 <AnchorPane prefHeight="382.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erd.categoryoptions.controller.CategoryController">
    <children>
-      <TableView fx:id="roletable" layoutX="4.0" layoutY="4.0" prefHeight="368.0" prefWidth="525.0" stylesheets="@../../css/tableview.css">
+      <TableView fx:id="categorytable" layoutX="4.0" layoutY="4.0" prefHeight="368.0" prefWidth="525.0" stylesheets="@../../css/tableview.css">
          <columns>
-            <TableColumn fx:id="roleCol" prefWidth="118.0" text="အမျိုးအစား" />
-            <TableColumn fx:id="descCol" prefWidth="406.0" text="အကြောင်းအရာ" />
+            <TableColumn fx:id="nameCol" prefWidth="205.0" text="အမျိုးအစား" />
+            <TableColumn fx:id="descCol" prefWidth="319.0" text="အကြောင်းအရာ" />
          </columns>
       </TableView>
       <VBox layoutX="541.0" layoutY="9.0" prefHeight="313.0" prefWidth="304.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css">
          <children>
-            <TextField fx:id="roletxt" promptText="ရာထူအမျိုးအစား">
+            <TextField fx:id="nametxt" promptText="အမျိုးအစား">
                <font>
                   <Font name="Pyidaungsu" size="12.0" />
                </font>
@@ -29,7 +29,7 @@
                   <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </VBox.margin>
             </TextField>
-            <TextArea fx:id="desctxt" prefHeight="243.0" prefWidth="264.0" promptText="အမျိုးအစား">
+            <TextArea fx:id="desctxt" prefHeight="243.0" prefWidth="264.0" promptText="အကြောင်းအရာ">
                <font>
                   <Font name="Pyidaungsu" size="12.0" />
                </font>
