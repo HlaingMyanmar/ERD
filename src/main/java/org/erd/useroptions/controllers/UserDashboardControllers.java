@@ -14,6 +14,7 @@ import org.erd.useroptions.services.UserServices;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 public class UserDashboardControllers implements Initializable {
 
     @FXML
-    private TableColumn<Users, Date> DateCol;
+    private TableColumn<Users, Timestamp> DateCol;
 
     @FXML
     private Button addbtn;
@@ -83,13 +84,13 @@ public class UserDashboardControllers implements Initializable {
         idCol.setCellValueFactory(new PropertyValueFactory<>("user_id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("user_name"));
         passCol.setCellValueFactory(new PropertyValueFactory<>("password"));
-        //DateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        DateCol.setCellValueFactory(new PropertyValueFactory<>("created_at"));
         statusCol.setCellValueFactory(new PropertyValueFactory<>("activation"));
     }
 
     private void getLodRowData() {
 
-        ObservableList<Users> usersObservableList = FXCollections.observableArrayList(userServices.getAllData());
+
 
 
 

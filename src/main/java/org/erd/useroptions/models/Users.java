@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
+
 
 @Entity
 @Component

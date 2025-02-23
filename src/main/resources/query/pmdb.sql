@@ -35,7 +35,6 @@ CREATE TABLE users (
                        password VARCHAR(255) NOT NULL,
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                        is_active TINYINT(1) DEFAULT 1
-
 );
 
 CREATE TABLE user_roles (
