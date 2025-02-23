@@ -91,6 +91,61 @@ public class CategoryController implements Initializable {
 
         });
 
+        categorytable.setOnMouseClicked(event -> {
+
+            if(event.getClickCount() == 2){
+
+                Category index = categorytable.getSelectionModel().getSelectedItem();
+
+                nametxt.setText(index.getCategory_name());
+                desctxt.setText(index.getDescription());
+
+                int id = getIDFromCategorydb(index.getCategory_name(),index.getDescription());
+
+                editbtn.setOnAction(event1 -> {
+
+                    String categoryName = nametxt.getText();
+                    String desc = desctxt.getText();
+
+                    Category category = new Category(id,categoryName, desc);
+
+                    if(testRoleValidate(category)){
+
+
+                        boolean result = categoryService.updateCategory(category);
+                        if(result){
+
+                            showInformationDialog("အမျိုးအစား", "အောင်မြင်သည်။", "အမျိုးအစား ပြုပြင်ခြင်းအောင်မြင်သည်။");
+                            setClear();
+                        }
+                        else{
+                            showErrorDialog("အမျိုးအစား", "မအောင်မြင်ပါ။", "အမျိုးအစားပြုပြင်ခြင်း မအောင်မြင်ပါ။");
+
+                        }
+                    }
+
+                });
+
+
+
+            }
+
+
+
+
+
+
+        });
+
+
+    }
+
+    private int getIDFromCategorydb(String name, String desc){
+
+        return categoryService.getCategories()
+                .stream()
+                .filter(category1 -> category1.getCategory_name().equals(name) && category1.getDescription().equals(desc))
+                .map(Category::getCategory_id).findFirst().orElse(-1);
 
     }
 
@@ -102,7 +157,6 @@ public class CategoryController implements Initializable {
 
     }
 
-
     private void categoryTableIni() {
 
 
@@ -110,7 +164,6 @@ public class CategoryController implements Initializable {
         descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 
     }
-
 
     private boolean testRoleValidate(Category category) {
 
@@ -140,7 +193,6 @@ public class CategoryController implements Initializable {
 
 
     }
-
 
     private void setClear(){
 
