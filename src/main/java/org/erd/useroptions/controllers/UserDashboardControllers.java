@@ -80,14 +80,16 @@ public class UserDashboardControllers implements Initializable {
 
     private void tableInill() {
 
-
+        idCol.setCellValueFactory(new PropertyValueFactory<>("user_id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("user_name"));
         passCol.setCellValueFactory(new PropertyValueFactory<>("password"));
-        DateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        //DateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         statusCol.setCellValueFactory(new PropertyValueFactory<>("activation"));
     }
 
     private void getLodRowData() {
+
+        ObservableList<Users> usersObservableList = FXCollections.observableArrayList(userServices.getAllData());
 
 
 

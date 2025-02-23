@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="458.0" prefWidth="738.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erd.useroptions.controllers.UserDashboardControllers">
    <children>
-      <TableView layoutX="9.0" layoutY="68.0" prefHeight="381.0" prefWidth="721.0" stylesheets="@../../css/tableview.css">
+      <TableView fx:id="userdbtable" layoutX="9.0" layoutY="68.0" prefHeight="381.0" prefWidth="721.0" stylesheets="@../../css/tableview.css">
         <columns>
           <TableColumn fx:id="idCol" prefWidth="71.0" text="အိုင်ဒီ" />
           <TableColumn fx:id="nameCol" prefWidth="183.0" text="အမည်" />
