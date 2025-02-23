@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import org.erd.categoryoptions.model.Category;
 import org.erd.categoryoptions.service.CategoryService;
@@ -126,15 +127,35 @@ public class CategoryController implements Initializable {
 
                 });
 
-
-
             }
 
+        });
+
+        categorytable.setOnKeyPressed(event -> {
 
 
+            if(event.getCode() == KeyCode.DELETE){
 
+                Category index = categorytable.getSelectionModel().getSelectedItem();
 
+                int id = getIDFromCategorydb(index.getCategory_name(),index.getDescription());
 
+                if(showConfirmDialog("အမျိးအစား", "ဖျက်မည်။", "ဤ အမျိးအစားကို ဖျက်မှာသေချာပြီလား")){
+
+                    boolean result = categoryService.deleteCategory(id);
+
+                    if(result){
+
+                        showInformationDialog("အမျိုးအစား", "အောင်မြင်သည်။", "အမျိုးအစား ဖျက်ခြင်းအောင်မြင်သည်။");
+                        setClear();
+                    }
+                    else{
+                        showErrorDialog("အမျိုးအစား", "မအောင်မြင်ပါ။", "အမျိုးအစားးဖျက်ခြင်းမအောင်မြင်ပါ။");
+
+                    }
+                }
+
+            }
         });
 
 
