@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import java.security.Timestamp;
+
 @Entity
 @Component
 @Getter@Setter
@@ -28,8 +30,13 @@ public class Users {
     @Column(name="password",length = 50)
     private String password;
 
+    @Column(name="created_at")
+    private Timestamp created_at;
+
     @Column(name="is_active",length = 1)
     private byte is_active;
+
+    private String activation;
 
 
     public Users(String user_name, String password, byte is_active) {
@@ -41,5 +48,21 @@ public class Users {
     public Users(String user_name, String password) {
         this.user_name = user_name;
         this.password = password;
+    }
+
+
+    public Users(int user_id, String user_name, String password, String activation) {
+        this.user_id = user_id;
+        this.user_name = user_name;
+        this.password = password;
+        this.activation = activation;
+    }
+
+    public Users(int user_id, String user_name, String password, Timestamp created_at, String activation) {
+        this.user_id = user_id;
+        this.user_name = user_name;
+        this.password = password;
+        this.created_at = created_at;
+        this.activation = activation;
     }
 }
