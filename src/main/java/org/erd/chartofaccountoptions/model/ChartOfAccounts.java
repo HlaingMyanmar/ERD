@@ -30,7 +30,16 @@ public class ChartOfAccounts {
    @Column(name = "is_active")
    private byte is_active ;
 
+   private String activation;
 
+   public ChartOfAccounts(String account_name, String account_type) {
+      this.account_name = account_name;
+      this.account_type = account_type;
+   }
 
-
+   public ChartOfAccounts(String account_name, String account_type, byte is_active) {
+      this.account_name = account_name;
+      this.account_type = account_type;
+      this.is_active = is_active;
+   }
 }
