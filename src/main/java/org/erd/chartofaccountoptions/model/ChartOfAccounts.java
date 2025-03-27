@@ -3,16 +3,14 @@ package org.erd.chartofaccountoptions.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 @Getter@Setter@AllArgsConstructor@NoArgsConstructor
 @Entity
 @Table(name = "chart_of_accounts")
 @Component
+@ToString
 public class ChartOfAccounts {
 
    @Id
@@ -38,6 +36,13 @@ public class ChartOfAccounts {
    }
 
    public ChartOfAccounts(String account_name, String account_type, byte is_active) {
+      this.account_name = account_name;
+      this.account_type = account_type;
+      this.is_active = is_active;
+   }
+
+   public ChartOfAccounts(int account_id, String account_name, String account_type, byte is_active) {
+      this.account_id = account_id;
       this.account_name = account_name;
       this.account_type = account_type;
       this.is_active = is_active;

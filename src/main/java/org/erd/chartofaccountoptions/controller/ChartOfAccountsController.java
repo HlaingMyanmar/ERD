@@ -158,6 +158,48 @@ public class ChartOfAccountsController implements Initializable {
 
         });
 
+        accounttable.setOnMouseClicked(event -> {
+
+            if(event.getClickCount() == 2){
+
+               ChartOfAccounts chart =  accounttable.getSelectionModel().getSelectedItem();
+
+                int id = getID(chart.getAccount_name());
+                acnametxt.setText(chart.getAccount_name());
+                actypetxt.setText(chart.getAccount_type());
+
+                switch (chart.getActivation()){
+                    case "Active": enablecheckbox.selectedProperty().set(true);disablecheckbox.selectedProperty().set(false); break;
+                    case "Inactive": disablecheckbox.selectedProperty().set(true);enablecheckbox.selectedProperty().set(false); break;
+                }
+
+
+
+                editbtn.setOnAction(event1 -> {
+
+                    if(acnametxt.getText().isEmpty() || actypetxt.getText().isEmpty()){
+                        showErrorDialog("Chart Of Account", "Update", "Please Choose Account?");
+                    }
+
+                    String accountName =  acnametxt.getText();
+                    String accountType =  actypetxt.getText();
+                    byte status = (byte) getConditionCheckbox();
+
+                   ChartOfAccounts chartOfAccounts = new ChartOfAccounts(id,accountName,accountType,status);
+
+                   if(chartOfAccountsService.updateChartOfAccounts(chartOfAccounts)){
+                       showInformationDialog("Chart Of Account", "Update", "Success for Update Chart Of Account : "+chartOfAccounts.getAccount_id());
+                       getLoadData();
+                   }
+
+
+                });
+
+
+            }
+
+        });
+
 
 
 
