@@ -173,13 +173,8 @@ public class ChartOfAccountsController implements Initializable {
                     case "Inactive": disablecheckbox.selectedProperty().set(true);enablecheckbox.selectedProperty().set(false); break;
                 }
 
-
-
                 editbtn.setOnAction(event1 -> {
 
-                    if(acnametxt.getText().isEmpty() || actypetxt.getText().isEmpty()){
-                        showErrorDialog("Chart Of Account", "Update", "Please Choose Account?");
-                    }
 
                     String accountName =  acnametxt.getText();
                     String accountType =  actypetxt.getText();
