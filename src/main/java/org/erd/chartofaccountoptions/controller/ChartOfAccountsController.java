@@ -139,20 +139,20 @@ public class ChartOfAccountsController implements Initializable {
             if (event.getCode() == KeyCode.DELETE) {
 
 
-               int id =getID(accounttable.getSelectionModel().getSelectedItem().getAccount_name());
+                try {
 
-               if(chartOfAccountsService.deleteById(id)){
+                    int id = getID(accounttable.getSelectionModel().getSelectedItem().getAccount_name());
 
-                   showInformationDialog("Chart Of Account","Delete","Success");
-               }
+                    if (chartOfAccountsService.deleteById(id)) {
+                        accounttable.getItems().remove(accounttable.getSelectionModel().getSelectedItem());
 
+                        showInformationDialog("Chart Of Account", "Delete", "Success for Deleting Chart Of Account");
+                    }
 
+                }catch (NullPointerException e){
 
-
-
-
-
-                accounttable.getItems().remove(accounttable.getSelectionModel().getSelectedItem());
+                    showErrorDialog("Chart Of Account", "Delete", "Please Choose Account?");
+                }
 
             }
 
