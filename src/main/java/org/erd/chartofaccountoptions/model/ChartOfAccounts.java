@@ -42,4 +42,11 @@ public class ChartOfAccounts {
       this.account_type = account_type;
       this.is_active = is_active;
    }
+
+   public ChartOfAccounts(int account_id, String account_name, String account_type, String activation) {
+      this.account_id = account_id;
+      this.account_name = account_name;
+      this.account_type = account_type;
+      this.activation = activation;
+   }
 }

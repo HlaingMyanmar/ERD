@@ -35,6 +35,12 @@ public class ChartOfAccountsService {
         return chartOfAccountsdb.deleteData(chartOfAccounts);
     }
 
+    public boolean deleteById(int id){
+
+        return chartOfAccountsdb.deleteDataById(id);
+
+    }
+
 
 
 

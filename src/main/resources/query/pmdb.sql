@@ -9,8 +9,8 @@ USE pmdb;
 
 CREATE TABLE chart_of_accounts (
                                    account_id INT PRIMARY KEY AUTO_INCREMENT,
-                                   account_name VARCHAR(255) UNIQUE NOT NULL,
-                                   account_type varchar(100) NOT NULL,
+                                   account_name VARCHAR(255)  NOT NULL,
+                                   account_type varchar(100) UNIQUE NOT NULL,
                                    is_active TINYINT(1) DEFAULT 1
 
 );

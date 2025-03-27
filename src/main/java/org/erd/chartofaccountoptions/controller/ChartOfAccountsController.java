@@ -5,10 +5,12 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import org.erd.chartofaccountoptions.model.ChartOfAccounts;
 import org.erd.chartofaccountoptions.service.ChartOfAccountsService;
@@ -16,13 +18,16 @@ import org.erd.roleoptions.models.Roles;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class ChartOfAccountsController implements Initializable {
 
+    private final ChartOfAccounts chartOfAccounts;
     @FXML
     private TableView<ChartOfAccounts> accounttable;
 
@@ -60,9 +65,10 @@ public class ChartOfAccountsController implements Initializable {
 
     private ChartOfAccountsService chartOfAccountsService;
 
-    public ChartOfAccountsController(Validator validator, ChartOfAccountsService chartOfAccountsService) {
+    public ChartOfAccountsController(Validator validator, ChartOfAccountsService chartOfAccountsService, ChartOfAccounts chartOfAccounts) {
         this.validator = validator;
         this.chartOfAccountsService = chartOfAccountsService;
+        this.chartOfAccounts = chartOfAccounts;
     }
 
     @Override
@@ -80,10 +86,18 @@ public class ChartOfAccountsController implements Initializable {
     }
 
     private void getLoadData() {
+        List<ChartOfAccounts> list = chartOfAccountsService.getAllData();
 
+        ObservableList<ChartOfAccounts> data = FXCollections.observableArrayList(
+                list.stream()
+                        .map(coa -> {
+                            coa.setActivation(coa.getIs_active() == 1 ? "Active" : "Inactive");
+                            return coa;
+                        })
+                        .toList()
+        );
 
-
-
+        accounttable.setItems(data);
     }
 
     private void actionEvent() {
@@ -107,6 +121,7 @@ public class ChartOfAccountsController implements Initializable {
                 boolean isRoleAdded = chartOfAccountsService.addChartOfAccounts(chartOfAccounts);
                 if (isRoleAdded) {
                     showInformationDialog("Account", "အောင်မြင်သည်။", "Account ထည့်ခြင်း အောင်မြင်သည်။");
+                    getLoadData();
 
                     setClear();
                 } else {
@@ -118,6 +133,37 @@ public class ChartOfAccountsController implements Initializable {
 
 
         });
+
+        accounttable.setOnKeyPressed(event -> {
+
+            if (event.getCode() == KeyCode.DELETE) {
+
+
+               int id =getID(accounttable.getSelectionModel().getSelectedItem().getAccount_name());
+
+               if(chartOfAccountsService.deleteById(id)){
+
+                   showInformationDialog("Chart Of Account","Delete","Success");
+               }
+
+
+
+
+
+
+
+                accounttable.getItems().remove(accounttable.getSelectionModel().getSelectedItem());
+
+            }
+
+        });
+
+
+
+
+
+
+
 
 
     }
@@ -137,6 +183,15 @@ public class ChartOfAccountsController implements Initializable {
 
         return enablecheckbox.isSelected() || disablecheckbox.isSelected();
 
+
+    }
+
+    private int getID(String accountName) {
+
+
+        return  chartOfAccountsService.getAllData().stream()
+                .filter(chartOfAccounts -> chartOfAccounts.getAccount_name().equals(accountName))
+                .map(ChartOfAccounts::getAccount_id).findFirst().orElse(-1);
 
     }
 
