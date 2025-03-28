@@ -18,10 +18,10 @@ class UserEditController : Initializable {
 
 
     @FXML
-    private val disablecheckbox: JFXCheckBox? = null
+    private var disablecheckbox: JFXCheckBox? = null
 
     @FXML
-    private val enablecheckbox: JFXCheckBox? = null
+    private var enablecheckbox: JFXCheckBox? = null
 
     @FXML
     private var idlb: Label? = null
@@ -33,10 +33,10 @@ class UserEditController : Initializable {
     private var namelb: Label? = null
 
     @FXML
-    private val passtxt: PasswordField? = null
+    private var passtxt: PasswordField? = null
 
     @FXML
-    private val usertxt: TextField? = null
+    private var usertxt: TextField? = null
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
 
@@ -54,6 +54,47 @@ class UserEditController : Initializable {
         idlb?.text = user?.user_id?.toString() ?: ""
 
         namelb?.text= user?.user_name ?: ""
+
+
+        when (user?.activation) {
+
+                "inactive" -> {
+                    enablecheckbox?.isDisable = false
+                    disablecheckbox?.isDisable = true
+                    disablecheckbox?.isSelected = true
+                }
+
+                "active" -> {
+                    enablecheckbox?.isDisable = true
+                    enablecheckbox?.isSelected = true
+                    disablecheckbox?.isDisable = false
+                }
+
+        }
+
+
+
+
+
+    }
+
+    private fun getConditionCheckbox(): Int {
+
+        enablecheckbox?.setOnAction {
+
+               enablecheckbox?.isSelected = true
+               disablecheckbox?.isSelected = false
+
+
+        }
+        disablecheckbox?.setOnAction {
+            disablecheckbox?.isSelected = true
+            disablecheckbox?.isSelected = false
+
+        }
+
+        return if (enablecheckbox?.isSelected == true) 1 else 0
+
 
 
 
