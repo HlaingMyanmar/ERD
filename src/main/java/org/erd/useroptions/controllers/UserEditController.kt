@@ -24,13 +24,13 @@ class UserEditController : Initializable {
     private val enablecheckbox: JFXCheckBox? = null
 
     @FXML
-    private val idlb: Label? = null
+    private var idlb: Label? = null
 
     @FXML
     private val insertbtn: Button? = null
 
     @FXML
-    private val namelb: Label? = null
+    private var namelb: Label? = null
 
     @FXML
     private val passtxt: PasswordField? = null
@@ -46,14 +46,12 @@ class UserEditController : Initializable {
 
     }
 
-    fun getLoadData() {
+    private fun getLoadData() {
 
         val userdto = UserDTO.getInstance()
         val user = userdto.getUser()
 
-        println(user?.user_id)
-
-        idlb?.text =user?.user_id?.toString() ?: ""
+        idlb?.text = user?.user_id?.toString() ?: ""
 
         namelb?.text= user?.user_name ?: ""
 
