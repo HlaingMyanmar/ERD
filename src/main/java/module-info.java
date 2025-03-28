@@ -25,6 +25,7 @@ module org.erd {
     requires jakarta.cdi;
     requires jfxtras.controls;
     requires com.google.protobuf;
+    requires kotlin.stdlib;
 
     opens org.erd to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core;
     exports org.erd;
@@ -80,6 +81,9 @@ module org.erd {
     opens org.erd.useroptions.services to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.useroptions.services;
 
+    opens org.erd.useroptions.dto to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.useroptions.dto;
+
     opens org.erd.categoryoptions.model to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.categoryoptions.model;
 
@@ -103,6 +107,10 @@ module org.erd {
 
     opens org.erd.chartofaccountoptions.impl to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.chartofaccountoptions.impl;
+
+
+
+
 
 
 

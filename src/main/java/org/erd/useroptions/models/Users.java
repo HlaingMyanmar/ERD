@@ -52,6 +52,8 @@ public class Users {
     }
 
 
+
+
     public Users(int user_id, String user_name, String password, String activation) {
         this.user_id = user_id;
         this.user_name = user_name;

@@ -4,15 +4,24 @@ import jakarta.validation.Validator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import lombok.val;
+import org.erd.App;
+import org.erd.useroptions.dto.UserDTO;
 import org.erd.useroptions.models.Users;
 import org.erd.useroptions.services.UserServices;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -21,9 +30,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import static org.erd.App.context;
+
 @Controller
 public class UserDashboardControllers implements Initializable {
 
+    private final UserDTO userDTO;
     @FXML
     private TableColumn<Users, Timestamp> DateCol;
 
@@ -62,10 +74,11 @@ public class UserDashboardControllers implements Initializable {
     private List<Users> usersList;
 
 
-    public UserDashboardControllers(UserServices userServices, Validator validator) {
+    public UserDashboardControllers(UserServices userServices, Validator validator, UserDTO userDTO) {
         this.userServices = userServices;
         this.validator = validator;
         usersList = new ArrayList<>();
+        this.userDTO = userDTO;
     }
 
 
@@ -76,8 +89,103 @@ public class UserDashboardControllers implements Initializable {
 
         tableInill();
 
+        actionEvent();
+
 
     }
+
+    private void actionEvent() {
+
+
+        addbtn.setOnAction(e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(UserDashboardControllers.class.getResource("/views/userview/createuserview.fxml"));
+            fxmlLoader.setControllerFactory(context::getBean);
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.WINDOW_MODAL);
+
+
+            Stage mainStage = (Stage) addbtn.getScene().getWindow();
+            stage.initOwner(mainStage);
+
+
+            stage.setTitle("Create User");
+            stage.setScene(scene);
+            stage.show();
+
+
+            stage.setOnCloseRequest(event -> {
+                getLodRowData();
+            });
+
+
+
+        });
+
+        userdbtable.setOnMouseClicked(event -> {
+
+
+            if(event.getClickCount() == 2) {
+
+
+                val userDTO =  UserDTO.Companion.getInstance();
+
+                Users user= userdbtable.getSelectionModel().getSelectedItem();
+
+                userDTO.setUser(user);
+
+
+                FXMLLoader fxmlLoader = new FXMLLoader(UserDashboardControllers.class.getResource("/views/userview/updateuserview.fxml"));
+                fxmlLoader.setControllerFactory(context::getBean);
+                Scene scene = null;
+                try {
+                    scene = new Scene(fxmlLoader.load());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+
+                Stage stage = new Stage();
+                stage.initModality(Modality.WINDOW_MODAL);
+
+
+                Stage mainStage = (Stage) addbtn.getScene().getWindow();
+                stage.initOwner(mainStage);
+
+
+                stage.setTitle("Edit User");
+                stage.setScene(scene);
+                stage.show();
+
+
+                stage.setOnCloseRequest(e -> {
+                    getLodRowData();
+                });
+
+
+
+
+
+            }
+
+        });
+
+
+
+
+
+
+
+    }
+
+
 
     private void tableInill() {
 
