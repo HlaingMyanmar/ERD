@@ -84,6 +84,10 @@ module org.erd {
     opens org.erd.useroptions.dto to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.useroptions.dto;
 
+    opens org.erd.useroptions.dataviews to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.useroptions.dataviews;
+
+
     opens org.erd.categoryoptions.model to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.categoryoptions.model;
 

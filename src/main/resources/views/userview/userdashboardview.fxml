@@ -54,12 +54,12 @@
                   <FontAwesomeIconView glyphName="CHAIN" glyphStyle="-fx-fill:white" size="24" />
                </graphic>
             </Button>
-            <TableView layoutX="397.0" layoutY="4.0" prefHeight="54.0" prefWidth="331.0">
+            <TableView fx:id="summarydatatable" layoutX="397.0" layoutY="4.0" prefHeight="54.0" prefWidth="331.0">
               <columns>
-                <TableColumn prefWidth="108.0" text="Total" />
-                <TableColumn prefWidth="79.0" text="Active" />
-                  <TableColumn prefWidth="70.0" text="Not Active" />
-                  <TableColumn prefWidth="72.0" text="Role Count" />
+                <TableColumn fx:id="totaluserCol" prefWidth="108.0" text="Total" />
+                <TableColumn fx:id="activeuserCol" prefWidth="79.0" text="Active" />
+                  <TableColumn fx:id="notactiveuserCol" prefWidth="70.0" text="Not Active" />
+                  <TableColumn fx:id="rolecountCol" prefWidth="72.0" text="Role Count" />
               </columns>
             </TableView>
          </children>

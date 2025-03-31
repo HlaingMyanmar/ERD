@@ -15,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.val;
 import org.erd.App;
+import org.erd.useroptions.dataviews.SummaryDataView;
 import org.erd.useroptions.dto.UserDTO;
 import org.erd.useroptions.models.Users;
 import org.erd.useroptions.services.UserServices;
@@ -31,7 +32,7 @@ import static org.erd.App.context;
 @Controller
 public class UserDashboardControllers implements Initializable {
 
-    private final UserDTO userDTO;
+
     @FXML
     private TableColumn<Users, Timestamp> DateCol;
 
@@ -62,12 +63,31 @@ public class UserDashboardControllers implements Initializable {
     @FXML
     private TableView<Users> userdbtable;
 
+    @FXML
+    private TableView<SummaryDataView> summarydatatable;
+
+    @FXML
+    private TableColumn<SummaryDataView, Integer> activeuserCol;
+
+    @FXML
+    private TableColumn<SummaryDataView, Integer> notactiveuserCol;
+
+    @FXML
+    private TableColumn<SummaryDataView, Integer> rolecountCol;
+
+    @FXML
+    private TableColumn<SummaryDataView, Integer> totaluserCol;
+
+
+
 
     private final UserServices userServices;
 
     private final Validator validator;
 
     private List<Users> usersList;
+
+    private final UserDTO userDTO;
 
 
     public UserDashboardControllers(UserServices userServices, Validator validator, UserDTO userDTO) {
@@ -82,6 +102,8 @@ public class UserDashboardControllers implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         getLodRowData();
+
+
 
         tableInill();
 
@@ -225,7 +247,31 @@ public class UserDashboardControllers implements Initializable {
     }
 
 
+    private void setSummaryDataView(int userID){
 
+        ObservableList<SummaryDataView> summaryDataViews = FXCollections.observableArrayList();
+
+
+        int totalUsers = userServices.getAllData().size();
+
+        int activeUsers = userServices.getAllData()
+                .stream()
+                .filter(users -> users.getIs_active()==1)
+                .toList().size();
+
+        int nonactiveUsers = userServices.getAllData()
+                .stream()
+                .filter(users -> users.getIs_active()==0)
+                .toList().size();
+
+        summaryDataViews.add(new SummaryDataView( totalUsers, activeUsers, nonactiveUsers));
+
+        summarydatatable.setItems(summaryDataViews);
+
+
+
+
+    }
 
     private void tableInill() {
 
@@ -234,12 +280,19 @@ public class UserDashboardControllers implements Initializable {
         passCol.setCellValueFactory(new PropertyValueFactory<>("password"));
         DateCol.setCellValueFactory(new PropertyValueFactory<>("created_at"));
         statusCol.setCellValueFactory(new PropertyValueFactory<>("activation"));
+
+        totaluserCol.setCellValueFactory(new PropertyValueFactory<>("totalUser"));
+        activeuserCol.setCellValueFactory(new PropertyValueFactory<>("activeUser"));
+        notactiveuserCol.setCellValueFactory(new PropertyValueFactory<>("notActiveUser"));
+        rolecountCol.setCellValueFactory(new PropertyValueFactory<>("roleCount"));
+
+
     }
 
     private void getLodRowData() {
 
 
-
+        setSummaryDataView(1);
 
 
         ObservableList<Users> userList = FXCollections.observableArrayList(userServices.getAllData().stream()
