@@ -96,6 +96,7 @@ public class Usersdb implements DataAccessObject<Users> {
             session.getTransaction().commit();
             return true;
         }catch (Exception e) {
+            assert tx != null;
             tx.rollback();
             return false;
         }

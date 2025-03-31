@@ -1,15 +1,14 @@
 package org.erd.useroptions.controllers;
 
 import jakarta.validation.Validator;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
@@ -24,10 +23,7 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.erd.App.context;
@@ -177,6 +173,28 @@ public class UserDashboardControllers implements Initializable {
 
         });
 
+        removebtn.setOnAction(e -> {
+
+            int id  = userdbtable.getSelectionModel().getSelectedItem().getUser_id();
+
+            boolean confirmed = showConfirmDialog("အသုံးပြုသူ", "စစ်ဆေးပါ။", "ဤအသုံးပြုသူအား ဖျက်မှာသေချာပြီလား။");
+
+
+                if(confirmed){
+
+                    userServices.deleteUser(id);
+                    getLodRowData();
+                }
+                else
+                    showErrorDialog("အသုံးပြုသူ", "စစ်ဆေးပါ။", "ဤအသုံးပြုသူအားဖျက်၍ မရနိုင်ပါ။");
+
+
+
+
+
+
+        });
+
 
 
 
@@ -184,6 +202,28 @@ public class UserDashboardControllers implements Initializable {
 
 
     }
+    private boolean showConfirmDialog(String title, String header, String content) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
+
+
+    }
+
+    private void showErrorDialog(String title, String header, String content) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(header);
+            alert.setContentText(content);
+            alert.showAndWait();
+        });
+    }
+
 
 
 
