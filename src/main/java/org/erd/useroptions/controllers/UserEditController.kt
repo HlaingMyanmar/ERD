@@ -42,6 +42,7 @@ class UserEditController : Initializable {
 
 
         getLoadData()
+        getConditionCheckbox()
 
 
     }
@@ -55,19 +56,22 @@ class UserEditController : Initializable {
 
         namelb?.text= user?.user_name ?: ""
 
+        usertxt?.text = user?.user_name ?: ""
+
+        passtxt?.text = user?.password?:""
+
 
         when (user?.activation) {
 
                 "inactive" -> {
-                    enablecheckbox?.isDisable = false
-                    disablecheckbox?.isDisable = true
+
                     disablecheckbox?.isSelected = true
                 }
 
                 "active" -> {
-                    enablecheckbox?.isDisable = true
+
                     enablecheckbox?.isSelected = true
-                    disablecheckbox?.isDisable = false
+
                 }
 
         }
@@ -80,16 +84,20 @@ class UserEditController : Initializable {
 
     private fun getConditionCheckbox(): Int {
 
+
+
         enablecheckbox?.setOnAction {
 
                enablecheckbox?.isSelected = true
                disablecheckbox?.isSelected = false
 
 
+
         }
         disablecheckbox?.setOnAction {
             disablecheckbox?.isSelected = true
-            disablecheckbox?.isSelected = false
+            enablecheckbox?.isSelected = false
+
 
         }
 
