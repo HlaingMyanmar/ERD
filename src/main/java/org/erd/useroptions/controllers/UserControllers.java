@@ -127,6 +127,7 @@ public class UserControllers implements Initializable {
 
 
     }
+
     private void showErrorDialog(String title, String header, String content) {
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.ERROR);
