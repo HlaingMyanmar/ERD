@@ -32,18 +32,7 @@
                   <FontAwesomeIconView glyphName="USER" glyphStyle="-fx-fill:white" size="24" />
                </graphic>
             </Button>
-            <Button fx:id="editbtn" layoutX="137.0" layoutY="9.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="103.0" stylesheets="@../../css/btn2.css" text="ပြုပြင်မည်။">
-               <font>
-                  <Font name="Pyidaungsu Bold" size="12.0" />
-               </font>
-               <padding>
-                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-               </padding>
-               <graphic>
-                  <FontAwesomeIconView glyphName="EDIT" glyphStyle="-fx-fill:white" size="24" />
-               </graphic>
-            </Button>
-            <Button fx:id="removebtn" layoutX="246.0" layoutY="8.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="103.0" stylesheets="@../../css/btn2.css" text="ဖျက်မည်။">
+            <Button fx:id="removebtn" layoutX="138.0" layoutY="8.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="103.0" stylesheets="@../../css/btn2.css" text="ဖျက်မည်။">
                <font>
                   <Font name="Pyidaungsu Bold" size="12.0" />
                </font>
@@ -54,7 +43,7 @@
                   <FontAwesomeIconView glyphName="REMOVE" glyphStyle="-fx-fill:white" size="24" />
                </graphic>
             </Button>
-            <Button fx:id="setrolebtn" layoutX="355.0" layoutY="9.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="141.0" stylesheets="@../../css/btn2.css" text="ရာထူးသတ်မှတ်ခြင်း">
+            <Button fx:id="setrolebtn" layoutX="247.0" layoutY="9.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="141.0" stylesheets="@../../css/btn2.css" text="ရာထူးသတ်မှတ်ခြင်း">
                <font>
                   <Font name="Pyidaungsu Bold" size="12.0" />
                </font>
@@ -65,12 +54,12 @@
                   <FontAwesomeIconView glyphName="CHAIN" glyphStyle="-fx-fill:white" size="24" />
                </graphic>
             </Button>
-            <TableView layoutX="501.0" layoutY="4.0" prefHeight="54.0" prefWidth="233.0">
+            <TableView layoutX="397.0" layoutY="4.0" prefHeight="54.0" prefWidth="331.0">
               <columns>
-                <TableColumn prefWidth="40.0" text="Total" />
-                <TableColumn prefWidth="49.0" text="Active" />
-                  <TableColumn prefWidth="71.0" text="Not Active" />
-                  <TableColumn prefWidth="71.0" text="Role Count" />
+                <TableColumn prefWidth="108.0" text="Total" />
+                <TableColumn prefWidth="79.0" text="Active" />
+                  <TableColumn prefWidth="70.0" text="Not Active" />
+                  <TableColumn prefWidth="72.0" text="Role Count" />
               </columns>
             </TableView>
          </children>
