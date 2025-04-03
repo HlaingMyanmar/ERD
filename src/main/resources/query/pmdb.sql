@@ -88,8 +88,8 @@ CREATE TABLE payment_methods (
                                  method_id INT PRIMARY KEY AUTO_INCREMENT,
                                  method_code VARCHAR(20) UNIQUE NOT NULL,
                                  method_name VARCHAR(100) NOT NULL,
-                                 is_digital BOOLEAN DEFAULT FALSE,
-                                 is_active BOOLEAN DEFAULT TRUE
+                                 is_digital TINYINT(1) DEFAULT 0,
+                                 is_active TINYINT(1) DEFAULT 0
 
 );
 

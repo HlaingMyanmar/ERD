@@ -112,6 +112,20 @@ module org.erd {
     opens org.erd.chartofaccountoptions.impl to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.chartofaccountoptions.impl;
 
+    opens org.erd.paymentoptions.service to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.paymentoptions.service;
+
+    opens org.erd.paymentoptions.impl to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.paymentoptions.impl;
+
+    opens org.erd.paymentoptions.controller to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.paymentoptions.controller;
+
+    opens org.erd.paymentoptions.model to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.paymentoptions.model;
+
+    opens org.erd.paymentoptions.views to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.paymentoptions.views;
 
 
 
