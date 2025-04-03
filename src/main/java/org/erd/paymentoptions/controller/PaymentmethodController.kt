@@ -1,15 +1,19 @@
 package org.erd.paymentoptions.controller
 
 import com.jfoenix.controls.JFXCheckBox
+import jakarta.validation.Validator
+import javafx.application.Platform
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
+import javafx.scene.control.Alert
 import javafx.scene.control.Button
 import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
 import javafx.scene.control.TextField
+import javafx.stage.Modality
 import org.erd.paymentoptions.model.Payment
 import org.erd.paymentoptions.service.PaymentService
 import org.erd.paymentoptions.views.PaymentView
@@ -18,7 +22,7 @@ import java.net.URL
 import java.util.*
 
 @Controller
-class PaymentMethodController (private val paymentService: PaymentService) :Initializable {
+class PaymentMethodController (private val paymentService: PaymentService ,private var validator: Validator?) :Initializable {
 
     @FXML
     private lateinit var codeCol: TableColumn<PaymentView, String>
@@ -27,7 +31,7 @@ class PaymentMethodController (private val paymentService: PaymentService) :Init
     private lateinit var disablecheckbox: JFXCheckBox
 
     @FXML
-    private lateinit var editbtn: Button
+    private  lateinit var editbtn: Button
 
     @FXML
     private lateinit var enablecheckbox: JFXCheckBox
@@ -65,10 +69,67 @@ class PaymentMethodController (private val paymentService: PaymentService) :Init
 
 
         tableIni()
-       // paymenttable.items = getLoadPaymentData()
+        paymenttable.items = getLoadPaymentData()
+        onClickAction()
 
-        paymentService.getAllPayment()
 
+
+    }
+
+    private fun onClickAction() {
+
+
+        insertbtn.setOnMouseClicked {
+            val paymentCode = paymentcodetxt.text
+            val paymentMethod = paymentmethodtxt.text
+            val isDigital = isDigitalCheckbox().toByte()
+            val status = getConditionCheckbox().toByte()
+
+            if (paymentCode.isEmpty() || paymentMethod.isEmpty()) {
+                showErrorDialog("Payment", "Unsuccessful", "Please refill required Data!!!")
+                return@setOnMouseClicked
+            }
+
+            val payment = Payment()
+            payment.methodCode = paymentCode
+            payment.methodName = paymentMethod
+            payment.isdigital = isDigital
+            payment.isactive = status
+
+
+            val savedPayment = paymentService.save(payment)
+
+
+            if (testRoleValidate(payment)) {
+                if (savedPayment != null) {
+                    showInformationDialog("test", "test", "test")
+                    paymenttable.items = getLoadPaymentData()
+                }
+            }
+        }
+
+
+
+
+    }
+
+    private fun testRoleValidate(payment: Payment): Boolean {
+
+        val violations = validator!!.validate(payment)
+
+        if (violations.isNotEmpty()) {
+            val errorMessages = StringBuilder()
+            for (violation in violations) {
+                errorMessages.append(violation.message).append("\n\n")
+            }
+
+
+            showErrorDialog("ဒေတာဘေစ် အမှား", "ဒေတာ လိုအပ်ချက်များရှိနေသည်။", errorMessages.toString())
+
+            return false
+        } else {
+            return true
+        }
     }
 
     private fun getLoadPaymentData(): ObservableList<PaymentView> {
@@ -76,7 +137,7 @@ class PaymentMethodController (private val paymentService: PaymentService) :Init
             .map { payment ->
                 val digitalStatus = if (payment.isdigital.toInt() ==1) "Online" else "Offline"
                 val activeStatus = if (payment.isactive.toInt() ==1) "Active" else "Inactive"
-                PaymentView(payment.paymentId, payment.methodCode, payment.methodName, digitalStatus, activeStatus)
+                PaymentView(payment.method_id, payment.methodCode, payment.methodName, digitalStatus, activeStatus)
             }
             .let { FXCollections.observableArrayList(it) }
     }
@@ -99,6 +160,78 @@ class PaymentMethodController (private val paymentService: PaymentService) :Init
 
 
 
+    }
+
+    private fun getConditionCheckbox(): Int {
+
+
+
+        enablecheckbox.setOnAction {
+
+            enablecheckbox.isSelected = true
+            disablecheckbox.isSelected = false
+
+
+
+        }
+        disablecheckbox.setOnAction {
+            disablecheckbox.isSelected = true
+            enablecheckbox.isSelected = false
+
+
+        }
+
+        return if (enablecheckbox.isSelected == true) 1 else 0
+
+
+
+
+    }
+    private fun isDigitalCheckbox(): Int {
+
+
+
+        onlinecheckbox.setOnAction {
+
+            onlinecheckbox.isSelected = true
+            offlinecheckbox.isSelected = false
+
+
+
+        }
+        offlinecheckbox.setOnAction {
+            offlinecheckbox.isSelected = true
+            onlinecheckbox.isSelected = false
+
+
+        }
+
+        return if (onlinecheckbox.isSelected == true) 1 else 0
+
+
+
+
+    }
+
+    private fun showErrorDialog(title: String, header: String, content: String) {
+        Platform.runLater {
+            val alert = Alert(Alert.AlertType.ERROR)
+            alert.title = title
+            alert.headerText = header
+            alert.contentText = content
+            alert.showAndWait()
+        }
+    }
+
+    private fun showInformationDialog(title: String, header: String, content: String) {
+        Platform.runLater {
+            val alert = Alert(Alert.AlertType.INFORMATION)
+            alert.initModality(Modality.APPLICATION_MODAL)
+            alert.title = title
+            alert.headerText = header
+            alert.contentText = content
+            alert.showAndWait()
+        }
     }
 
 

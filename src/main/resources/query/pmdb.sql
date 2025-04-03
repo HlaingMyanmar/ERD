@@ -85,7 +85,7 @@ CREATE TABLE audit_logs (
 
 CREATE TABLE payment_methods (
 
-                                 method_id INT PRIMARY KEY AUTO_INCREMENT,
+                                 method_id INT PRIMARY KEY AUTO_INCREMENT not null,
                                  method_code VARCHAR(20) UNIQUE NOT NULL,
                                  method_name VARCHAR(100) NOT NULL,
                                  is_digital TINYINT(1) DEFAULT 0,

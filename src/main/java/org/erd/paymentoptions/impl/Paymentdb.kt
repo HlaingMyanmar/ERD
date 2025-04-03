@@ -26,6 +26,8 @@ open class PaymentDb @Autowired constructor(
     }
 
     override fun insertData(t: Payment?): Boolean {
+
+        println(t?.method_id)
         if (t == null) return false
         val session = sessionFactory.openSession()
         return try {

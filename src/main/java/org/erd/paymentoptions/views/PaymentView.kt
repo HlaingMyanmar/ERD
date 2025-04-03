@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 data class PaymentView(
 
 
-    val paymentId: Int=0,
+    val method_id: Int? =0,
 
 
     val methodCode: String = "",
