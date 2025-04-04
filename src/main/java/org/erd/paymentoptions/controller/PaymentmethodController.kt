@@ -71,6 +71,8 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
         tableIni()
         paymenttable.items = getLoadPaymentData()
         onClickAction()
+        getConditionCheckbox()
+        isDigitalCheckbox()
 
 
 
@@ -96,40 +98,62 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
             payment.isDigital = isDigital
             payment.isActive= status
 
-
-            val savedPayment = paymentService.save(payment)
-
-
             if (testRoleValidate(payment)) {
-                if (true) {
+                val savedPayment = paymentService.save(payment)
+                if (savedPayment==true) {
                     showInformationDialog("Payment", "Payment Insert Successful", "Successfully created Payment!")
                     setClear()
                     paymenttable.items = getLoadPaymentData()
                 }
             }
+
+
+
+
+
+
         }
 
-        paymenttable.setOnMouseClicked{ event ->
+        paymenttable.setOnMouseClicked { event ->
+            if (event.clickCount == 2) {
+                val p: PaymentView? = paymenttable.selectionModel.selectedItem
 
-            if(event.clickCount ==2){
+                println(p)
 
-                var p: PaymentView? = paymenttable.selectionModel.selectedItem
+                paymentcodetxt.text = p?.methodCode ?: ""
+                paymentmethodtxt.text = p?.methodName ?: ""
+
+                if (p?.isdigital?.equals("Online") == true) {
+                    onlinecheckbox.isSelected = true
+                    offlinecheckbox.isSelected = false
+                } else {
+                    offlinecheckbox.isSelected = true
+                    onlinecheckbox.isSelected = false
+                }
+
+                if (p?.isactive?.equals("Active") == true) {
+                    enablecheckbox.isSelected = true
+                    disablecheckbox.isSelected = false
+                } else {
+                    disablecheckbox.isSelected = true
+                    enablecheckbox.isSelected = false
+                }
+
+                editbtn.setOnMouseClicked {
+
+
+
+
+
+
+                }
 
 
 
             }
-
-
         }
 
-        editbtn.setOnMouseClicked {
 
-
-
-
-
-
-        }
 
 
 
