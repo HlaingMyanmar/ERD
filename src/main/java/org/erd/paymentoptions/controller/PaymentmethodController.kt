@@ -10,9 +10,11 @@ import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.Alert
 import javafx.scene.control.Button
+import javafx.scene.control.ButtonType
 import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
 import javafx.scene.control.TextField
+import javafx.scene.input.KeyCode
 import javafx.stage.Modality
 import org.erd.paymentoptions.model.Payment
 import org.erd.paymentoptions.service.PaymentService
@@ -115,7 +117,7 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
             if (event.clickCount == 2) {
                 val p: PaymentView? = paymenttable.selectionModel.selectedItem
 
-                println(p)
+
 
                 paymentcodetxt.text = p?.methodCode ?: ""
                 paymentmethodtxt.text = p?.methodName ?: ""
@@ -169,6 +171,29 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
 
 
             }
+
+
+        }
+
+        paymenttable.setOnKeyPressed { event ->
+
+            if(event.code== KeyCode.DELETE){
+
+                val p: PaymentView? = paymenttable.selectionModel.selectedItem
+
+                val result = showConfirmDialog("Payment", "Payment Deletion ", "Are you sure?!")
+
+                if(result==true){
+                    paymentService.deleteById( p?.method_id?.toInt())
+                    showInformationDialog("Payment", "Payment Delete Successful", "Successfully Delete Payment!")
+                    setClear()
+                    paymenttable.items = getLoadPaymentData()
+                }
+
+
+            }
+
+
         }
 
 
@@ -176,6 +201,15 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
 
 
 
+    }
+
+    private fun showConfirmDialog(title: String, header: String, content: String): Boolean {
+        val alert = Alert(Alert.AlertType.CONFIRMATION)
+        alert.title = title
+        alert.headerText = header
+        alert.contentText = content
+        val result = alert.showAndWait()
+        return result.isPresent && result.get() == ButtonType.OK
     }
 
     private fun testRoleValidate(payment: Payment): Boolean {

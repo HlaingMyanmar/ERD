@@ -7,7 +7,6 @@ import org.erd.paymentoptions.model.Payment
 import org.hibernate.SessionFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
-import org.springframework.transaction.annotation.Transactional
 
 @Repository
 open class PaymentDb @Autowired constructor(
@@ -82,10 +81,56 @@ open class PaymentDb @Autowired constructor(
     }
 
     override fun deleteData(t: Payment?): Boolean {
+        if(t==null) return false
+
+        val session = sessionFactory.openSession()
+
+        return try {
+
+            val tx= session.beginTransaction()
+            session.remove(t)
+            tx.commit()
+            true
+
+        }catch (e: Exception){
+            session.transaction.rollback()
+            e.printStackTrace()
+            false
+
+        }finally {
+            session.close()
+        }
+
+
+
         return false
     }
 
     override fun deleteDataById(id: Int): Boolean {
-        return false
+        TODO("Not yet implemented")
+    }
+
+
+    fun deleteDataById(id: Int?): Boolean {
+        val session = sessionFactory.openSession()
+        return try {
+            val tx = session.beginTransaction()
+            val payment = session.get(Payment::class.java, id)
+
+            if (payment != null) {
+                session.remove(payment)
+                tx.commit()
+                true
+            } else {
+                tx.rollback()
+                false
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            session.transaction.rollback()
+            false
+        } finally {
+            session.close()
+        }
     }
 }

@@ -29,7 +29,7 @@ class PaymentService ( private val paymentDb: PaymentDb){
         return paymentDb.deleteData(payment)
     }
 
-    fun deleteById(id:Int) : Boolean {
+    fun deleteById(id: Int?) : Boolean {
         return paymentDb.deleteDataById(id)
     }
 
