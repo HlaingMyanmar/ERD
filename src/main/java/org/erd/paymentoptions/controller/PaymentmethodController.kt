@@ -140,7 +140,7 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
 
 
                    val paymentCode = paymentcodetxt.text?: p?.methodCode
-                   val paymentMethod = paymentcodetxt.text  ?: p?.methodName
+                   val paymentMethod = paymentmethodtxt.text  ?: p?.methodName
                    val isDigital = isDigitalCheckbox().toByte()
                    val status = getConditionCheckbox().toByte()
 
@@ -292,7 +292,7 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
     private  fun setClear(){
         paymentcodetxt.text = null
         paymentmethodtxt.text = null
-        onlinecheckbox.isSelected = false
+        enablecheckbox.isSelected = false
         disablecheckbox.isSelected = false
         offlinecheckbox.isSelected = false
         onlinecheckbox.isSelected = false
