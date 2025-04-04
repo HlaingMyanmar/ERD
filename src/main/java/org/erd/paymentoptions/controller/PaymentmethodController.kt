@@ -101,12 +101,34 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
 
 
             if (testRoleValidate(payment)) {
-                if (savedPayment != null) {
+                if (true) {
                     showInformationDialog("Payment", "Payment Insert Successful", "Successfully created Payment!")
                     setClear()
                     paymenttable.items = getLoadPaymentData()
                 }
             }
+        }
+
+        paymenttable.setOnMouseClicked{ event ->
+
+            if(event.clickCount ==2){
+
+                var p: PaymentView? = paymenttable.selectionModel.selectedItem
+
+
+
+            }
+
+
+        }
+
+        editbtn.setOnMouseClicked {
+
+
+
+
+
+
         }
 
 
