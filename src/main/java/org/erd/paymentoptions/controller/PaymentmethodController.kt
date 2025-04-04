@@ -102,7 +102,8 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
 
             if (testRoleValidate(payment)) {
                 if (savedPayment != null) {
-                    showInformationDialog("test", "test", "test")
+                    showInformationDialog("Payment", "Payment Insert Successful", "Successfully created Payment!")
+                    setClear()
                     paymenttable.items = getLoadPaymentData()
                 }
             }
@@ -187,6 +188,7 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
 
 
     }
+
     private fun isDigitalCheckbox(): Int {
 
 
@@ -221,6 +223,15 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
             alert.contentText = content
             alert.showAndWait()
         }
+    }
+
+    private  fun setClear(){
+        paymentcodetxt.text = null
+        paymentmethodtxt.text = null
+        onlinecheckbox.isSelected = false
+        disablecheckbox.isSelected = false
+        offlinecheckbox.isSelected = false
+        onlinecheckbox.isSelected = false
     }
 
     private fun showInformationDialog(title: String, header: String, content: String) {
