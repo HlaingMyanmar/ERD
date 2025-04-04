@@ -93,8 +93,8 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
             val payment = Payment()
             payment.methodCode = paymentCode
             payment.methodName = paymentMethod
-            payment.isdigital = isDigital
-            payment.isactive = status
+            payment.isDigital = isDigital
+            payment.isActive= status
 
 
             val savedPayment = paymentService.save(payment)
@@ -135,9 +135,9 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
     private fun getLoadPaymentData(): ObservableList<PaymentView> {
         return paymentService.getAllPayment()
             .map { payment ->
-                val digitalStatus = if (payment.isdigital.toInt() ==1) "Online" else "Offline"
-                val activeStatus = if (payment.isactive.toInt() ==1) "Active" else "Inactive"
-                PaymentView(payment.method_id, payment.methodCode, payment.methodName, digitalStatus, activeStatus)
+                val digitalStatus = if (payment.isDigital.toInt() ==1) "Online" else "Offline"
+                val activeStatus = if (payment.isActive.toInt() ==1) "Active" else "Inactive"
+                PaymentView(payment.method_Id, payment.methodCode, payment.methodName, digitalStatus, activeStatus)
             }
             .let { FXCollections.observableArrayList(it) }
     }

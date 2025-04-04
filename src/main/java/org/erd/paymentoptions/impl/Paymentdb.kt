@@ -15,9 +15,18 @@ open class PaymentDb @Autowired constructor(
 ) : DataAccessObject<Payment> {
 
     override fun getAllData(): List<Payment> {
-        val session = sessionFactory.openSession()
-        val query = session.createQuery("FROM Payment", Payment::class.java)
-        return query.resultList ?: emptyList()
+
+        try {
+            val session = sessionFactory.openSession()
+            val query = session.createQuery("FROM Payment", Payment::class.java)
+            return query.resultList ?: emptyList()
+        }
+        catch (e: Exception) {
+            return emptyList()
+        }
+
+
+
     }
 
     override fun findDataById(id: Int): Payment? {
@@ -26,48 +35,34 @@ open class PaymentDb @Autowired constructor(
     }
 
     override fun insertData(t: Payment?): Boolean {
-
-        println(t?.method_id)
+        println(t) // t ရဲ့ အချက်အလက်ကို ပြပါတယ်
         if (t == null) return false
+
         val session = sessionFactory.openSession()
         return try {
+            val tx = session.beginTransaction()
             session.persist(t)
+            tx.commit()
             true
         } catch (e: Exception) {
+            session.transaction.rollback()
+            e.printStackTrace()
             false
+        } finally {
+            session.close()
         }
+
     }
 
     override fun updateData(t: Payment?): Boolean {
-        if (t == null) return false
-        val session = sessionFactory.currentSession
-        return try {
-            session.merge(t)
-            true
-        } catch (e: Exception) {
-            false
-        }
+       return false
     }
 
     override fun deleteData(t: Payment?): Boolean {
-        if (t == null) return false
-        val session = sessionFactory.currentSession
-        return try {
-            session.delete(t)
-            true
-        } catch (e: Exception) {
-            false
-        }
+        return false
     }
 
     override fun deleteDataById(id: Int): Boolean {
-        val session = sessionFactory.currentSession
-        val payment = findDataById(id) ?: return false
-        return try {
-            session.delete(payment)
-            true
-        } catch (e: Exception) {
-            false
-        }
+        return false
     }
 }
