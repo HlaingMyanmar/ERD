@@ -108,13 +108,10 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
             }
 
 
-
-
-
-
         }
 
         paymenttable.setOnMouseClicked { event ->
+
             if (event.clickCount == 2) {
                 val p: PaymentView? = paymenttable.selectionModel.selectedItem
 
@@ -141,6 +138,27 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
 
                 editbtn.setOnMouseClicked {
 
+
+                   val paymentCode = paymentcodetxt.text?: p?.methodCode
+                   val paymentMethod = paymentcodetxt.text  ?: p?.methodName
+                   val isDigital = isDigitalCheckbox().toByte()
+                   val status = getConditionCheckbox().toByte()
+
+                    val payment = Payment()
+                    payment.method_Id = p?.method_id
+                    payment.methodCode = paymentCode.toString()
+                    payment.methodName = paymentMethod.toString()
+                    payment.isDigital = isDigital
+                    payment.isActive= status
+
+                    if(paymentService.update(payment)==true){
+
+                        showInformationDialog("Payment", "Payment Update Successful", "Successfully Update Payment!")
+                        setClear()
+                        paymenttable.items = getLoadPaymentData()
+
+
+                    }
 
 
 

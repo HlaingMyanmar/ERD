@@ -35,7 +35,7 @@ open class PaymentDb @Autowired constructor(
     }
 
     override fun insertData(t: Payment?): Boolean {
-        println(t) // t ရဲ့ အချက်အလက်ကို ပြပါတယ်
+
         if (t == null) return false
 
         val session = sessionFactory.openSession()
@@ -55,6 +55,29 @@ open class PaymentDb @Autowired constructor(
     }
 
     override fun updateData(t: Payment?): Boolean {
+
+        if(t==null) return false
+
+        val session = sessionFactory.openSession()
+
+        return try {
+
+            val tx= session.beginTransaction()
+            session.merge(t)
+            tx.commit()
+            true
+
+        }catch (e: Exception){
+            session.transaction.rollback()
+            e.printStackTrace()
+            false
+
+        }finally {
+            session.close()
+        }
+
+
+
        return false
     }
 
