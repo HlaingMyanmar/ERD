@@ -24,7 +24,7 @@ import java.net.URL
 import java.util.*
 
 @Controller
-class PaymentMethodController (private val paymentService: PaymentService ,private var validator: Validator?) :Initializable {
+class PaymentMethodController (private val paymentService: PaymentService ,private val validator: Validator?) :Initializable {
 
     @FXML
     private lateinit var codeCol: TableColumn<PaymentView, String>

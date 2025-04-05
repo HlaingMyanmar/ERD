@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component
 @Entity
 @Table(name = "payment_methods")
 data class Payment(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var method_Id: Int? = null,

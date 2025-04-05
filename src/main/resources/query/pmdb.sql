@@ -107,9 +107,6 @@ CREATE TABLE transactions (
                               account_id INT NOT NULL,
                               FOREIGN KEY (account_id) REFERENCES chart_of_accounts(account_id)
 
-
-
-
 );
 
 
@@ -119,9 +116,7 @@ CREATE TABLE transaction_payments (
                                       payment_date DATETIME NOT NULL,
                                       method_id INT NOT NULL,
                                       amount DECIMAL(15,2) NOT NULL,
-                                      is_verified BOOLEAN DEFAULT FALSE,
                                       verified_by INT,
-                                      verified_at DATETIME,
                                       FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id),
                                       FOREIGN KEY (method_id) REFERENCES payment_methods(method_id),
                                       FOREIGN KEY (verified_by) REFERENCES users(user_id)
