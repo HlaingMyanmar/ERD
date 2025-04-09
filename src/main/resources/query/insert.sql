@@ -188,3 +188,4 @@ INSERT INTO categories (category_name, description) VALUES
 ('Automotive', 'Car parts and accessories'),
 ('Home Decor', 'Items for decorating homes like curtains and vases'),
 ('Health & Fitness', 'Supplements, fitness trackers, and gym equipment');
+

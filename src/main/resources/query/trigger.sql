@@ -1,120 +1,75 @@
-
-
-လုပ်ငန်းစဉ် ခွဲခြမ်းစိတ်ဖြာ
-transactions: ငွေပေးငွေယူ မှတ်တမ်းတစ်ခု စတင် ဖန်တီးမယ်။
-transaction_payments: အဲဒီ transaction အတွက် ငွေပေးချေမှု မှတ်တမ်းထည့်မယ်။
-capital_injections: အရင်းအနှီး သွင်းမှုကို မှတ်တမ်းတင်မယ်။
-journal_entries: စာရင်းအင်း မှတ်တမ်းတစ်ခု ဖန်တီးမယ်။
-journal_details: အဲဒီ journal entry ရဲ့ debit/credit အသေးစိတ် ထည့်မယ်။
-
-
-
-DDELIMITER //
-
-CREATE TRIGGER after_transaction_insert_payments
-    AFTER INSERT ON transactions
-    FOR EACH ROW
-BEGIN
-    IF NEW.reference_no LIKE 'CAP-%' THEN
-        INSERT INTO transaction_payments (
-            transaction_id,
-            payment_date,
-            method_id,
-            amount,
-            verified_by
-        ) VALUES (
-            NEW.transaction_id,
-            NOW(),
-            NEW.method_id,
-            NEW.total_amount,
-            NULL
-        );
-END IF;
-END //
-
-DELIMITER ;
-
-DELIMITER //
-
-CREATE TRIGGER after_transaction_insert_capital
-    AFTER INSERT ON transactions
-    FOR EACH ROW
-BEGIN
-    IF NEW.reference_no LIKE 'CAP-%' THEN
-        INSERT INTO capital_injections (
-            injection_date,
-            amount,
-            description,
-            transaction_id,
-            payment_id
-        ) VALUES (
-            DATE(NEW.transaction_date),
-            NEW.total_amount,
-            CONCAT('Capital Injection via ', NEW.reference_no),
-            NEW.transaction_id,
-            (SELECT payment_id FROM transaction_payments WHERE transaction_id = NEW.transaction_id LIMIT 1)
-        );
-END IF;
-END //
-
-DELIMITER ;
+-- transaction payment ->journal_entries -> journal_details trigger
 
 
 DELIMITER //
 
-CREATE TRIGGER after_transaction_insert_journal_entries
-    AFTER INSERT ON transactions
+CREATE TRIGGER after_payment_insert_journal_entries
+    AFTER INSERT ON transaction_payments
     FOR EACH ROW
 BEGIN
-    IF NEW.reference_no LIKE 'CAP-%' THEN
-        INSERT INTO journal_entries (
-            transaction_date,
-            description,
-            reference_no
-        ) VALUES (
-            DATE(NEW.transaction_date),
-            CONCAT('Capital Injection via ', NEW.reference_no),
-            NEW.reference_no
-        );
-END IF;
+    DECLARE trans_ref_no VARCHAR(100);
+
+    -- transactions ကနေ reference_no ယူမယ်
+    SELECT reference_no INTO trans_ref_no
+    FROM transactions
+    WHERE transaction_id = NEW.transaction_id
+        LIMIT 1;
+
+    INSERT INTO journal_entries (
+        transaction_date,
+        description,
+        reference_no
+    ) VALUES (
+                 DATE(NEW.payment_date),
+                 CONCAT('Payment for Transaction #', NEW.transaction_id),
+                 trans_ref_no
+             );
 END //
 
 DELIMITER ;
-
-    DELIMITER //
+DELIMITER //
 
 CREATE TRIGGER after_journal_entries_insert_details
     AFTER INSERT ON journal_entries
     FOR EACH ROW
 BEGIN
-    DECLARE trans_amount DECIMAL(15,2);
-    DECLARE cash_account INT;
-    DECLARE capital_account INT;
+    DECLARE pay_amount DECIMAL(15,2);
+    DECLARE pay_transaction_id VARCHAR(50);
+    DECLARE pay_method_id INT;
+    DECLARE trans_account_id INT;
 
-    SET trans_amount = (SELECT total_amount FROM transactions WHERE reference_no = NEW.reference_no LIMIT 1);
-    SET cash_account = (SELECT account_id FROM transactions WHERE reference_no = NEW.reference_no LIMIT 1);
-    SET capital_account = 21;  -- Owner’s Capital ကို ယာယီထားတယ်
+    -- transaction_payments ကနေ လိုအပ်တဲ့ ဒေတာယူမယ်
+    SELECT tp.amount, tp.transaction_id, tp.method_id, t.account_id
+    INTO pay_amount, pay_transaction_id, pay_method_id, trans_account_id
+    FROM transaction_payments tp
+             JOIN transactions t ON tp.transaction_id = t.transaction_id
+    WHERE t.reference_no = NEW.reference_no
+        LIMIT 1;
 
+    -- Transaction ရဲ့ သဘောသဘာဝပေါ် မူတည်ပြီး debit/credit ထည့်မယ်
     IF NEW.reference_no LIKE 'CAP-%' THEN
+        -- Capital Injection
         INSERT INTO journal_details (entry_id, account_id, debit, credit)
-        VALUES (NEW.entry_id, cash_account, trans_amount, 0.00);
+        VALUES (NEW.entry_id, trans_account_id, pay_amount, 0.00);  -- Debit Cash
 
     INSERT INTO journal_details (entry_id, account_id, debit, credit)
-    VALUES (NEW.entry_id, capital_account, 0.00, trans_amount);
+    VALUES (NEW.entry_id, 21, 0.00, pay_amount);  -- Credit Owner’s Capital
+    ELSEIF NEW.reference_no LIKE 'SALE-%' THEN
+        -- Sales Revenue
+        INSERT INTO journal_details (entry_id, account_id, debit, credit)
+        VALUES (NEW.entry_id, trans_account_id, pay_amount, 0.00);  -- Debit Cash
+
+    INSERT INTO journal_details (entry_id, account_id, debit, credit)
+    VALUES (NEW.entry_id, 30, 0.00, pay_amount);  -- Credit Sales Revenue
+    ELSEIF NEW.reference_no LIKE 'EXP-%' THEN
+        -- Expense
+        INSERT INTO journal_details (entry_id, account_id, debit, credit)
+        VALUES (NEW.entry_id, 40, pay_amount, 0.00);  -- Debit Expense (e.g., Rent)
+
+    INSERT INTO journal_details (entry_id, account_id, debit, credit)
+    VALUES (NEW.entry_id, trans_account_id, 0.00, pay_amount);  -- Credit Cash
 END IF;
 END //
 
 DELIMITER ;
 
-DELIMITER //
-
-CREATE TRIGGER after_purchase_details_insert
-    AFTER INSERT ON purchase_details
-    FOR EACH ROW
-BEGIN
-
-    INSERT INTO product_pricing (product_id, purchase_id, cost_price, quantity)
-    VALUES (NEW.product_id, NEW.purchase_id, NEW.unit_price, NEW.quantity);
-END //
-
-DELIMITER ;
