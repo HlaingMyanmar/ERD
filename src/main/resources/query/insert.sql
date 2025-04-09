@@ -1,213 +1,190 @@
+-- ********************** Data **********************
+
+INSERT INTO roles (role_name, description, is_active) VALUES
+('Admin', 'Full access to all features', 1),
+('Manager', 'Manage products and staff', 1),
+('Staff', 'Basic access for daily operations', 1),
+('Guest', 'Limited access for viewing only', 0),
+('Supervisor', 'Oversee operations and reports', 1);
+
+INSERT INTO permissions (permission_name, description, is_active) VALUES
+('view_products', 'View product details', 1),
+('edit_products', 'Edit product information', 1),
+('delete_products', 'Delete products', 1),
+('view_sales', 'View sales records', 1),
+('edit_sales', 'Edit sales records', 1),
+('view_purchases', 'View purchase records', 1),
+('edit_purchases', 'Edit purchase records', 1),
+('manage_users', 'Add/Edit/Delete users', 1),
+('view_reports', 'View financial and sales reports', 1),
+('manage_suppliers', 'Manage supplier information', 1),
+('archive_data', 'Archive old records', 0);
+
+INSERT INTO users (username, password, is_active) VALUES
+('admin1', 'hashed_password_123', 1),
+('mgr_john', 'hashed_password_456', 1),
+('staff_aye', 'hashed_password_789', 1),
+('supervisor_ko', 'hashed_password_101', 1),
+('staff_min', 'hashed_password_112', 1),
+('inactive_user', 'hashed_password_999', 0);
+
+INSERT INTO user_roles (user_id, role_id, is_active) VALUES
+(1, 1, 1), -- admin1 -> Admin
+(2, 2, 1), -- mgr_john -> Manager
+(3, 3, 1), -- staff_aye -> Staff
+(4, 5, 1), -- supervisor_ko -> Supervisor
+(5, 3, 1), -- staff_min -> Staff
+(6, 4, 0); -- inactive_user -> Guest (Inactive)
+
+INSERT INTO role_permissions (role_id, permission_id) VALUES
+-- Admin (Full access)
+(1, 1), -- view_products
+(1, 2), -- edit_products
+(1, 3), -- delete_products
+(1, 4), -- view_sales
+(1, 5), -- edit_sales
+(1, 6), -- view_purchases
+(1, 7), -- edit_purchases
+(1, 8), -- manage_users
+(1, 9), -- view_reports
+(1, 10), -- manage_suppliers
+
+-- Manager (Moderate access)
+(2, 1), -- view_products
+(2, 2), -- edit_products
+(2, 4), -- view_sales
+(2, 5), -- edit_sales
+(2, 6), -- view_purchases
+(2, 7), -- edit_purchases
+(2, 9), -- view_reports
+(2, 10), -- manage_suppliers
+
+-- Staff (Basic access)
+(3, 1), -- view_products
+(3, 4), -- view_sales
+(3, 6), -- view_purchases
+
+-- Guest (View only, Inactive)
+(4, 1), -- view_products
+(4, 4), -- view_sales
+
+-- Supervisor (Oversee operations)
+(5, 1), -- view_products
+(5, 4), -- view_sales
+(5, 6), -- view_purchases
+(5, 9); -- view_reports
 
 
--- Account_Type
-INSERT INTO account_types (account_type_name) 
-VALUES 
-    ('Asset'),
-    ('Liability'),
-    ('Equity'),
-    ('Revenue'),
-    ('Expense');
-	
-	INSERT INTO transaction_types (transaction_type_name) 
-VALUES ('Purchase'), ('Sale'), ('Return');
-	
--- Chart_of_Account
-INSERT INTO chart_of_accounts (account_code, account_name, account_type_id) 
-VALUES 
-    ('1001', 'Cash', 1),            -- Asset
-    ('1002', 'Accounts Receivable', 1), -- Asset
-    ('2001', 'Accounts Payable', 2), -- Liability
-    ('3001', 'Owner’s Equity', 3),   -- Equity
-    ('4001', 'Service Revenue', 4),  -- Revenue
-    ('5001', 'Office Rent Expense', 5); -- Expense
--- Categories Insert
-INSERT INTO categories (category_name) VALUES 
-    ('Computers'), 
-    ('Accessories'), 
-    ('Software');
+
+INSERT INTO chart_of_accounts (account_name, account_type, is_active) VALUES
+-- Assets (ပိုင်ဆိုင်မှု)
+('Cash on Hand', 'Assets', 1),
+('Bank Account - Savings', 'Assets', 1),
+('Bank Account - Current', 'Assets', 1),
+('Accounts Receivable', 'Assets', 1),
+('Inventory', 'Assets', 1),
+('Office Equipment', 'Assets', 1),
+('Vehicles', 'Assets', 1),
+('Buildings', 'Assets', 1),
+('Land', 'Assets', 1),
+('Prepaid Expenses', 'Assets', 1),
+('Investment - Stocks', 'Assets', 1),
+('Investment - Bonds', 'Assets', 0), -- Inactive ဥပမာ
+
+-- Liabilities (အကြွေးများ)
+('Accounts Payable', 'Liabilities', 1),
+('Short-term Loan', 'Liabilities', 1),
+('Long-term Loan', 'Liabilities', 1),
+('Credit Card Payable', 'Liabilities', 1),
+('Accrued Expenses', 'Liabilities', 1),
+('Taxes Payable', 'Liabilities', 1),
+('Salaries Payable', 'Liabilities', 1),
+('Bank Overdraft', 'Liabilities', 0), -- Inactive ဥပမာ
+
+-- Equity (အရင်းအနှီး)
+('Owner’s Capital', 'Equity', 1),
+('Retained Earnings', 'Equity', 1),
+('Common Stock', 'Equity', 1),
+('Dividends', 'Equity', 1),
+('Partner Capital - A', 'Equity', 1),
+('Partner Capital - B', 'Equity', 1),
+('Capital Reserve', 'Equity', 0), -- Inactive ဥပမာ
+
+-- Revenue (ဝင်ငွေ)
+('Sales Revenue', 'Revenue', 1),
+('Service Revenue', 'Revenue', 1),
+('Interest Income', 'Revenue', 1),
+('Rental Income', 'Revenue', 1),
+('Commission Income', 'Revenue', 1),
+('Other Income', 'Revenue', 1),
+('Sales Discounts', 'Revenue', 0), -- Inactive ဥပမာ
+
+-- Expenses (အသုံးစရိတ်)
+('Rent Expense', 'Expenses', 1),
+('Utilities Expense', 'Expenses', 1),
+('Salaries Expense', 'Expenses', 1),
+('Office Supplies Expense', 'Expenses', 1),
+('Travel Expense', 'Expenses', 1),
+('Advertising Expense', 'Expenses', 1),
+('Depreciation Expense', 'Expenses', 1),
+('Insurance Expense', 'Expenses', 1),
+('Repairs and Maintenance', 'Expenses', 1),
+('Bank Charges', 'Expenses', 1),
+('Legal Fees', 'Expenses', 1),
+('Bad Debt Expense', 'Expenses', 0), -- Inactive ဥပမာ
+('Entertainment Expense', 'Expenses', 1),
+('Fuel Expense', 'Expenses', 1),
+('Training Expense', 'Expenses', 1);
+
+INSERT INTO suppliers (supplier_name, contact_person, phone_number, email, address, is_active) VALUES
+-- Active Suppliers
+('Myanmar Trading Co.', 'U Aung Myo', '09123456789', 'aungmyo@myanmartrading.com', 'No. 123, Bogyoke Street, Yangon', TRUE),
+('Golden Supplies Ltd.', 'Daw Hla Hla', '09987654321', 'hlahla@goldensupplies.com', '45 Sule Pagoda Road, Yangon', TRUE),
+('Shwe Taung Group', 'Ko Min Thu', '09456789012', 'minthu@shwetaung.com', '78 Insein Road, Yangon', TRUE),
+('Yangon Wholesale', 'Mg Kyaw Zin', '09234567890', 'kyawzin@ygnwholesale.com', '12 Strand Road, Yangon', TRUE),
+('Mandalay Imports', 'Daw Aye Aye', '09789123456', 'ayeaye@mdyimports.com', '35th Street, Mandalay', TRUE),
+('Sagaing Traders', 'U Soe Win', '09412345678', 'soewin@sagaingtraders.com', 'Sagaing Main Road, Sagaing', TRUE),
+('Taunggyi Distributors', 'Ko Zaw Min', '09912345678', 'zawmin@taunggyi.com', 'Bogyoke Road, Taunggyi', TRUE),
+('Eastern Supplies', 'Daw Myint Myint', '09256789012', 'myintmyint@easternsupplies.com', 'No. 56, Eastern Road, Yangon', TRUE),
+('Western Imports', 'U Htay Aung', '09765432109', 'htayaung@westernimports.com', 'Hledan Street, Yangon', TRUE),
+('Northern Trading', 'Mg Tun Tun', '09498765432', 'tuntun@northerntrading.com', 'Pyay Road, Yangon', TRUE),
+
+-- Inactive Suppliers
+('Old Yangon Supplies', 'U Win Naing', '09111222333', 'winnaing@oldygnsupplies.com', 'Lanmadaw Township, Yangon', FALSE),
+('Retired Traders', 'Daw Tin Tin', '09444455566', 'tintin@retiredtraders.com', 'Mandalay Road, Mandalay', FALSE),
+('Closed Imports', 'Ko Aung Ko', '09777788899', 'aungko@closedimports.com', 'Shan State, Taunggyi', FALSE),
+('Legacy Suppliers', 'Mg Hla Myo', '09222233344', 'hlamyo@legacysuppliers.com', 'Bahan Township, Yangon', FALSE),
+('Past Trading Co.', 'U Myo Zin', '09555566677', 'myozin@pasttrading.com', 'Kyauktada Township, Yangon', FALSE);
 
 
--- org.suppliersoptions` Insert
+INSERT INTO payment_methods (method_code, method_name, is_digital, is_active) VALUES
+-- Active Payment Methods
+('CASH', 'Cash', 0, 1),
+('BANKCARD', 'Bank Card (Debit)', 1, 1),
+('CREDITCARD', 'Credit Card', 1, 1),
+('MPU', 'MPU Card', 1, 1),
+('KBZPAY', 'KBZ Pay', 1, 1),
+('WAVEPAY', 'Wave Pay', 1, 1),
+('BANKTRANS', 'Bank Transfer', 1, 1),
 
-INSERT INTO suppliers (supplier_name, contact_person, phone_number, email, address) VALUES 
-    ('Tech World Co., Ltd.', 'Aung Aung', '0945123456', 'aung@techworld.com', 'Yangon, Myanmar'),
-    ('IT Solutions', 'Kyaw Kyaw', '0976543210', 'kyaw@itsolutions.com', 'Mandalay, Myanmar');
+-- Inactive Payment Methods
+('CHECK', 'Cheque', 0, 0),
+('PROMISE', 'Promise to Pay', 0, 0),
+('MOBILEVOUCH', 'Mobile Voucher', 1, 0);
 
-
--- Product Insert
-INSERT INTO products (product_id, product_name, category_id, supplier_id, cost_price, selling_price, stock_quantity, reorder_level) VALUES 
-    ('P001', 'Dell Laptop', 1, 1, 800000, 950000, 0, 5),
-    ('P002', 'Wireless Mouse', 2, 1, 20000, 25000, 0, 10),
-    ('P003', 'Windows 11 Pro License', 3, 2, 120000, 150000, 0, 5);
-	
--- Insert Purchase	
-INSERT INTO purchases (supplier_id, purchase_date, total_cost, account_id) VALUES 
-(1, '2025-02-12', 5000000, 5),  -- Purchase from Tech World
-(2, '2025-02-12', 2500000, 5);  -- Purchase from IT Solutions
-
--- Insert Purchase_detail
-INSERT INTO purchase_details (purchase_id, product_id, quantity, unit_price, total_price, discount, tax) VALUES 
-    (1, 'P001', 5, 800000, 4000000, 0, 20000),  -- 5 Dell Laptops
-    (1, 'P002', 50, 20000, 1000000, 5000, 10000),  -- 50 Wireless Mice
-    (2, 'P003', 10, 120000, 1200000, 0, 5000);  -- 10 Windows Licenses
-	
-
-
--- Trial Balance
-SELECT 
-    coa.account_name,
-    SUM(CASE 
-            WHEN jd.debit > 0 THEN jd.debit 
-            ELSE 0 
-        END) AS total_debit,
-    SUM(CASE 
-            WHEN jd.credit > 0 THEN jd.credit 
-            ELSE 0 
-        END) AS total_credit
-FROM 
-    journal_details jd
-JOIN 
-    chart_of_accounts coa ON jd.account_id = coa.account_id
-GROUP BY 
-    coa.account_name;
-
-
-
-
-
--- ကုန်ပစ္စည်းစီမံခန့်ခွဲမှု (Product Management)
--- လက်ရှိစတော့ပမာဏစစ်ဆေးခြင်း
-
-
-SELECT
-    p.product_id AS 'ကုန်ပစ္စည်းနံပါတ်',
-        p.product_name AS 'အမည်',
-        c.category_name AS 'အမျိုးအစား',
-        p.stock_quantity AS 'လက်ကျန်ပမာဏ',
-        p.reorder_level AS 'ပြန်ဖြည့်အဆင့်'
-FROM products p
-         JOIN categories c ON p.category_id = c.category_id
-WHERE p.stock_quantity <= p.reorder_level;
-
-
---ဘားကုဒ်ဖြင့်ရှာဖွေခြင်း
-
-SELECT
-    p.product_id,
-    p.product_name,
-    b.barcode_value
-FROM products p
-         JOIN barcodes b ON p.product_id = b.product_id
-WHERE b.barcode_value = '123456789'; -- ဘားကုဒ်တန်ဖိုးကို ပြင်ပါ
-
-
---ဝယ်ယူမှုစီမံခန့်ခွဲမှု (Purchase Management)
--- ပေးသွင်းသူအလိုက်ဝယ်ယူမှုစာရင်း
-
-SELECT
-    s.supplier_name AS 'ပေးသွင်းသူ',
-        COUNT(p.purchase_id) AS 'ဝယ်ယူမှုအရေအတွက်',
-        SUM(p.total_cost) AS 'စုစုပေါင်းကုန်ကျငွေ'
-FROM purchases p
-         JOIN suppliers s ON p.supplier_id = s.supplier_id
-GROUP BY s.supplier_id;
-
---မပြီးပြတ်သေးသောဝယ်ယူမှုများ
-
-SELECT
-    p.purchase_id,
-    s.supplier_name,
-    t.transaction_date,
-    t.total_amount,
-    t.balance
-FROM purchases p
-         JOIN transactions t ON p.transaction_id = t.transaction_id
-         JOIN suppliers s ON p.supplier_id = s.supplier_id
-WHERE t.status_id IN (1,3); -- 1=Unpaid, 3=Partial
-
--- ရောင်းချမှုစီမံခန့်ခွဲမှု (Sales Management)
---နေ့စဉ်ရောင်းချမှုအစီရင်ခံစာ
-SELECT
-    DATE(s.sale_date) AS 'ရက်စွဲ',
-    c.customer_name AS 'ဝယ်ယူသူ',
-    SUM(sd.total_price) AS 'စုစုပေါင်းရောင်းငွေ'
-FROM sales s
-    JOIN sale_details sd ON s.sale_id = sd.sale_id
-    JOIN customers c ON s.customer_id = c.customer_id
-GROUP BY DATE(s.sale_date), s.customer_id;
-
---အမြတ်စွန့်မှုခွဲခြမ်းစိတ်ဖြာခြင်း
-SELECT
-    p.product_id,
-    p.product_name,
-    SUM(sd.quantity) AS 'ရောင်းချပမာဏ',
-        SUM((sd.unit_price - p.cost_price) * sd.quantity) AS 'အမြတ်'
-FROM sale_details sd
-         JOIN products p ON sd.product_id = p.product_id
-GROUP BY p.product_id;
-
---ငွေပေးချေမှုစနစ် (Payment System)
---ငွေပေးချေမှုမှတ်တမ်းများ
-SELECT
-    t.transaction_id,
-    CASE
-        WHEN t.transaction_type = 'Purchase' THEN s.supplier_name
-        WHEN t.transaction_type = 'Sale' THEN c.customer_name
-        ELSE 'N/A'
-        END AS 'အမည်',
-        t.transaction_date,
-    t.total_amount,
-    t.paid_amount,
-    t.balance,
-    ps.status_name
-FROM transactions t
-         LEFT JOIN purchases p ON t.linked_id = p.purchase_id AND t.transaction_type = 'Purchase'
-         LEFT JOIN sales sa ON t.linked_id = sa.sale_id AND t.transaction_type = 'Sale'
-         LEFT JOIN suppliers s ON p.supplier_id = s.supplier_id
-         LEFT JOIN customers c ON sa.customer_id = c.customer_id
-         JOIN payment_statuses ps ON t.status_id = ps.status_id;
-
--- KBZ Pay ဖြင့်ပေးချေမှုများ
-SELECT
-    tp.payment_date,
-    tp.amount,
-    tp.reference_no
-FROM transaction_payments tp
-         JOIN payment_methods pm ON tp.method_id = pm.method_id
-WHERE pm.method_name = 'KBZ Pay'
-  AND tp.is_verified = TRUE;
-
---အရင်းအနှီးစီမံခန့်ခွဲမှု (Capital Management)
--- အရင်းအနှီးလက်ကျန်စစ်ဆေးခြင်း
-SELECT
-    (SELECT SUM(amount) FROM capital_injections) AS 'စုစုပေါင်းထည့်ဝင်ငွေ',
-        (SELECT SUM(amount) FROM capital_withdrawals) AS 'စုစုပေါင်းထုတ်ယူငွေ',
-        (SELECT SUM(amount) FROM capital_injections) - (SELECT SUM(amount) FROM capital_withdrawals) AS 'လက်ကျန်အရင်းအနှီး';
-
-
---Audit & Security
--- လုံခြုံရေးချို့ယွင်းမှုများစစ်ဆေးခြင်း
-SELECT
-    u.username,
-    a.action,
-    a.table_name,
-    a.action_time
-FROM audit_logs a
-         JOIN users u ON a.user_id = u.user_id
-WHERE a.action_time >= CURDATE() - INTERVAL 7 DAY
-ORDER BY a.action_time DESC;
-
-
--- ဝယ်ယူမှုအသစ်ထည့်ပါက
-INSERT INTO purchases (supplier_id, purchase_date, total_cost, account_id)
-VALUES (1, CURDATE(), 1500000, 101);
-
--- Trigger က အလိုအလျောက် transactions ဇယားသို့ထည့်ပေးမည်
-
-
--- KBZ Pay ဖြင့်ငွေပေးချေခြင်း
-INSERT INTO transaction_payments (transaction_id, payment_date, method_id, amount, reference_no)
-VALUES ('PUR-1001', NOW(), 2, 500000, 'KBZ-REF-001');
-
--- Trigger က paid_amount နှင့် status_id ကို အပ်ဒိတ်လုပ်မည်
+INSERT INTO categories (category_name, description) VALUES
+('Electronics', 'Devices and gadgets like phones, laptops, and TVs'),
+('Clothing', 'Men’s, women’s, and children’s apparel'),
+('Footwear', 'Shoes, sandals, and boots'),
+('Furniture', 'Home and office furniture like chairs, tables, and beds'),
+('Groceries', 'Daily essentials like rice, oil, and snacks'),
+('Cosmetics', 'Beauty products like makeup, skincare, and perfumes'),
+('Books', 'Fiction, non-fiction, and educational books'),
+('Toys', 'Children’s toys and games'),
+('Appliances', 'Household appliances like refrigerators and microwaves'),
+('Jewelry', 'Rings, necklaces, and earrings'),
+('Sports Equipment', 'Gear for sports like footballs, rackets, and weights'),
+('Stationery', 'Office and school supplies like pens, notebooks, and paper'),
+('Automotive', 'Car parts and accessories'),
+('Home Decor', 'Items for decorating homes like curtains and vases'),
+('Health & Fitness', 'Supplements, fitness trackers, and gym equipment');

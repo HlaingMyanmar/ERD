@@ -31,7 +31,7 @@
 
     <!-- Left: Filter Pane -->
     <left>
-        <VBox prefHeight="442.0" prefWidth="273.0" spacing="15" styleClass="filter-pane">
+        <VBox prefWidth="273.0" spacing="15" styleClass="filter-pane">
             <Label styleClass="pane-title" text="Filter Products" />
             <Separator />
             <Label text="Category" />

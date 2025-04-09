@@ -9,8 +9,8 @@ USE pmdb;
 
 CREATE TABLE chart_of_accounts (
                                    account_id INT PRIMARY KEY AUTO_INCREMENT,
-                                   account_name VARCHAR(255)  NOT NULL,
-                                   account_type varchar(100) UNIQUE NOT NULL,
+                                   account_name VARCHAR(255)  UNIQUE NOT NULL,
+                                   account_type varchar(100)  NOT NULL,
                                    is_active TINYINT(1) DEFAULT 1
 
 );
@@ -95,7 +95,6 @@ CREATE TABLE payment_methods (
 
 
 CREATE TABLE transactions (
-
                               transaction_id VARCHAR(50) PRIMARY KEY,
                               transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                               reference_no VARCHAR(100) UNIQUE NOT NULL,
@@ -105,10 +104,10 @@ CREATE TABLE transactions (
                               status ENUM('Paid','Unpaid','Half Paid') DEFAULT 'Unpaid',
                               notes TEXT,
                               account_id INT NOT NULL,
-                              FOREIGN KEY (account_id) REFERENCES chart_of_accounts(account_id)
-
+                              method_id INT,  -- ထပ်ထည့်တယ်
+                              FOREIGN KEY (account_id) REFERENCES chart_of_accounts(account_id),
+                              FOREIGN KEY (method_id) REFERENCES payment_methods(method_id)
 );
-
 
 CREATE TABLE transaction_payments (
                                       payment_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -507,9 +506,6 @@ CREATE TABLE installment_payments (
                                       FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id)
 
 );
-
-
-
 
 
 
