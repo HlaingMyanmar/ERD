@@ -197,8 +197,7 @@ CREATE TABLE products (
                           product_name VARCHAR(255) NOT NULL,
                           category_id INT NOT NULL,
                           supplier_id INT NOT NULL,
-                          cost_price DECIMAL(10,2) NOT NULL,
-                          selling_price DECIMAL(10,2) NOT NULL CHECK (selling_price >= cost_price),
+                          selling_price DECIMAL(10,2) DEFAULT NULL,
                           stock_quantity INT NOT NULL DEFAULT 0 CHECK (stock_quantity >= 0),
                           reorder_level INT DEFAULT 2 CHECK (reorder_level >= 0),
                           is_active TINYINT(1) NOT NULL DEFAULT 1,
@@ -210,6 +209,8 @@ CREATE TABLE products (
                           INDEX idx_product_name (product_name),
                           INDEX idx_supplier (supplier_id)
 );
+
+
 
 
 
@@ -269,6 +270,19 @@ CREATE TABLE purchase_details (
                                   FOREIGN KEY (purchase_id) REFERENCES purchases(purchase_id),
                                   FOREIGN KEY (product_id) REFERENCES products(product_id)
 
+);
+CREATE TABLE product_pricing (
+                                 pricing_id INT PRIMARY KEY AUTO_INCREMENT,
+                                 product_id VARCHAR(100) NOT NULL,
+                                 purchase_id VARCHAR(100) NOT NULL,
+                                 cost_price DECIMAL(10,2) NOT NULL,
+                                 selling_price DECIMAL(10,2) DEFAULT NULL,
+                                 quantity INT NOT NULL CHECK (quantity >= 0),
+                                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                 FOREIGN KEY (product_id) REFERENCES products(product_id),
+                                 FOREIGN KEY (purchase_id) REFERENCES purchases(purchase_id),
+                                 UNIQUE (product_id, purchase_id)
 );
 
 -- ရောင်းချမှုများ
