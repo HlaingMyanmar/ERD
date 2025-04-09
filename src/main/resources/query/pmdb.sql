@@ -165,8 +165,8 @@ CREATE TABLE suppliers (
                            contact_person VARCHAR(255),
                            phone_number VARCHAR(50) CHECK (phone_number REGEXP '^(09|01)[0-9]{8,9}$'),
 	                       email VARCHAR(100) CHECK (email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'),
-	address TEXT,
-	is_active BOOLEAN DEFAULT TRUE
+	                        address TEXT,
+	                        is_active BOOLEAN DEFAULT TRUE
 );
 
 
