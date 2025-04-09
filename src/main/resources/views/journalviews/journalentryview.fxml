@@ -156,7 +156,25 @@
                   <TableColumn prefWidth="137.0" text="Reference No." />
                </columns>
             </TableView>
-            <HBox prefHeight="187.0" prefWidth="902.0" />
+            <HBox prefHeight="187.0" prefWidth="902.0" style="-fx-alignment: center;">
+               <children>
+                  <Label style="-fx-alignment: center;" text="Total Debit : 0.0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="60.0" right="60.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label style="-fx-alignment: center;" text="Total Credit : 0.0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="60.0" right="60.0" />
+                     </HBox.margin>
+                  </Label>
+               </children></HBox>
          </children>
          <BorderPane.margin>
             <Insets />
