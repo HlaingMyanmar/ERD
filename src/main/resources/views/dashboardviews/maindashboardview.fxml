@@ -203,7 +203,7 @@
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </FontAwesomeIconView>
-                  <Label prefHeight="20.0" prefWidth="149.0" style="-fx-text-fill: #0066AE;" text="Welcome User">
+                  <Label fx:id="userlb" prefHeight="20.0" prefWidth="149.0" style="-fx-text-fill: #0066AE;" text="Welcome User">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

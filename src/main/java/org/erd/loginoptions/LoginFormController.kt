@@ -25,6 +25,10 @@ import java.util.stream.Collectors
 @Controller
 class LoginFormController (private val userServices: UserServices) : Initializable {
 
+    companion object {
+        var userName : String = ""
+    }
+
 
 
     @FXML
@@ -57,6 +61,8 @@ class LoginFormController (private val userServices: UserServices) : Initializab
         usernamecb.items = FXCollections.observableArrayList(allUsernames)
 
 
+
+
         // Add listener for autocomplete functionality
         usernamecb.editor.textProperty().addListener { _, _, newValue ->
             if (newValue.isEmpty()) {
@@ -86,7 +92,9 @@ class LoginFormController (private val userServices: UserServices) : Initializab
 
 
 
+
         editbtn.setOnMouseClicked {
+
 
 
             if (usernamecb.editor.text.isEmpty()  ) {
@@ -102,12 +110,12 @@ class LoginFormController (private val userServices: UserServices) : Initializab
                 val selectedUsername = usernamecb.editor.text
                 val password = passwordtxt.text
 
+                userName =selectedUsername
+
                 if(isTrue(selectedUsername,password)){
 
-                    showInformationDialog("User", "Success","Login Successful")
 
-
-                    val stage: Stage = Stage()
+                    val stage = Stage()
                     val mainStage: Stage = editbtn.scene.window as Stage
                     val fxmlLoader = FXMLLoader(App::class.java.getResource("/views/dashboardviews/maindashboardview.fxml"))
                     fxmlLoader.setControllerFactory { context.getBean(it) }
