@@ -135,6 +135,23 @@ module org.erd {
     exports org.erd.dashboard;
 
 
+    opens org.erd.capitaloptions.service to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.capitaloptions.service;
+
+    opens org.erd.capitaloptions.impl to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.capitaloptions.impl;
+
+    opens org.erd.capitaloptions.controller to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.capitaloptions.controller;
+
+    opens org.erd.capitaloptions.model to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.capitaloptions.model;
+
+    opens org.erd.transactionoptions.models to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.transactionoptions.models;
+
+
+
 
 
 
