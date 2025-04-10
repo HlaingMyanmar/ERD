@@ -128,6 +128,12 @@ module org.erd {
     exports org.erd.paymentoptions.views;
 
 
+    opens org.erd.loginoptions to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.loginoptions;
+
+
+
+
 
 
 

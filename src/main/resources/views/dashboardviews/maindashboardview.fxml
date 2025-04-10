@@ -12,11 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <AnchorPane prefHeight="37.0" prefWidth="1000.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css" BorderPane.alignment="CENTER" />
-   </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erd.dashboard.MaindashboardController">
    <left>
       <VBox prefHeight="563.0" prefWidth="203.0" BorderPane.alignment="CENTER">
          <children>
@@ -63,6 +59,14 @@
             <Button layoutX="10.0" layoutY="126.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="179.0" stylesheets="@../../css/btn2.css" text="Logout">
                <graphic>
                   <FontAwesomeIconView glyphName="LOCK" glyphStyle="-fx-fill:white" size="24" />
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button layoutX="20.0" layoutY="216.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="179.0" stylesheets="@../../css/btn2.css" text="Users">
+               <graphic>
+                  <FontAwesomeIconView glyphName="USERS" glyphStyle="-fx-fill:white" size="24" />
                </graphic>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
@@ -153,14 +157,14 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <VBox prefHeight="421.0" prefWidth="797.0" style="-fx-alignment: center;">
+            <VBox prefHeight="439.0" prefWidth="797.0" style="-fx-alignment: center;">
                <children>
                   <Label style="-fx-text-fill: #0066AE;" text="Recent Transactions">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TableView prefHeight="389.0" prefWidth="797.0" stylesheets="@../../css/tableview.css">
+                  <TableView prefHeight="414.0" prefWidth="797.0" stylesheets="@../../css/tableview.css">
                     <columns>
                       <TableColumn prefWidth="124.0" text="Date" />
                       <TableColumn prefWidth="168.0" text="Transaction ID" />
@@ -181,8 +185,51 @@
    <bottom>
       <HBox prefHeight="32.0" prefWidth="1000.0" style="-fx-alignment: center;" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Powered by SSPD | © 2025" />
+            <Label text="Powered by SSPD | © 2025">
+               <font>
+                  <Font name="Times New Roman Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
    </bottom>
+   <top>
+      <AnchorPane prefHeight="33.0" prefWidth="1000.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css" BorderPane.alignment="CENTER">
+         <children>
+            <HBox layoutY="1.0" prefHeight="35.0" prefWidth="200.0" style="-fx-alignment: center;">
+               <children>
+                  <FontAwesomeIconView glyphName="USER" size="24">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <Label prefHeight="20.0" prefWidth="149.0" style="-fx-text-fill: #0066AE;" text="Welcome User">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <Label layoutX="424.0" layoutY="3.0" style="-fx-text-fill: #0066AE;" text="Application Dashboard">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <padding>
+                  <Insets top="3.0" />
+               </padding>
+            </Label>
+            <Label layoutX="886.0" layoutY="7.0" prefHeight="23.0" prefWidth="110.0" style="-fx-text-fill: #0066AE; -fx-alignment: center;" text="User">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <padding>
+                  <Insets top="3.0" />
+               </padding>
+            </Label>
+         </children>
+      </AnchorPane>
+   </top>
 </BorderPane>

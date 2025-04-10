@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="395.0" prefWidth="394.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.userview.Loginform">
+<AnchorPane prefHeight="395.0" prefWidth="394.0" styleClass="pane-full-shadow" stylesheets="@../../css/pane.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.erd.loginoptions.LoginFormController">
    <children>
       <ComboBox layoutX="23.0" layoutY="128.0" prefHeight="48.0" prefWidth="354.0" promptText="သင့်၏ နာမည်ရွေးပါ" />
       <PasswordField layoutX="23.0" layoutY="210.0" prefHeight="48.0" prefWidth="354.0" promptText="သင့်၏ စကားဝှက်ထည့်ပါ။">
