@@ -2,11 +2,10 @@ package org.erd.capitaloptions.impl
 
 import org.erd.capitaloptions.model.CapitalInjections
 import org.erd.dao.DataAccessObject
-import org.hibernate.SessionFactory
 import org.springframework.stereotype.Repository
 
 @Repository
-class Capitaldb(val  sessionFactory: SessionFactory) : DataAccessObject<CapitalInjections>{
+class Capitaldb() : DataAccessObject<CapitalInjections>{
 
 
 

@@ -16,7 +16,7 @@ import java.sql.Date
 @Component
 @Entity
 @Table(name = "capital_injections")
-class CapitalInjections {
+class CapitalInjections() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +30,9 @@ class CapitalInjections {
     val amount: Double = 0.0
 
     @Column(name = "description")
-    val description: String? = null 
+    val description: String? = null
 
     @OneToOne
     @JoinColumn(name = "transaction_id", unique = true)
-    val transaction: Transactions?=null
+    var transaction: Transactions = TODO() //
 }

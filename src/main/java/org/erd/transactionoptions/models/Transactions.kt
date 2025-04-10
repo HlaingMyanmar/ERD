@@ -49,6 +49,6 @@ data class Transactions(
     @JoinColumn(name = "account_id")
     val account_id: ChartOfAccounts? = null,
 
-    @OneToOne(mappedBy = "transactions", cascade = [CascadeType.ALL],fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "transaction") // Fixed: points to the field name in CapitalInjections
     val capitalInjection: CapitalInjections? = null
 )

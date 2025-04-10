@@ -33,7 +33,7 @@ public class ChartOfAccounts {
 
    private String activation;
 
-   @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+   @OneToMany(mappedBy = "account_id", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
    private Set<Transactions> transactionsSet;
 
    public ChartOfAccounts(String account_name, String account_type) {
