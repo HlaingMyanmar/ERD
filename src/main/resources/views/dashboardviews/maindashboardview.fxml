@@ -40,7 +40,7 @@
                   <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="62.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="179.0" stylesheets="@../../css/btn2.css" text="Capital">
+            <Button fx:id="capitalbtn" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="179.0" stylesheets="@../../css/btn2.css" text="Capital">
                <graphic>
                   <FontAwesomeIconView glyphName="MONEY" glyphStyle="-fx-fill:white" size="24" />
                </graphic>
@@ -56,17 +56,17 @@
                   <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="126.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="179.0" stylesheets="@../../css/btn2.css" text="Logout">
+            <Button layoutX="20.0" layoutY="216.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="179.0" stylesheets="@../../css/btn2.css" text="Users">
                <graphic>
-                  <FontAwesomeIconView glyphName="LOCK" glyphStyle="-fx-fill:white" size="24" />
+                  <FontAwesomeIconView glyphName="USERS" glyphStyle="-fx-fill:white" size="24" />
                </graphic>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="20.0" layoutY="216.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="179.0" stylesheets="@../../css/btn2.css" text="Users">
+            <Button layoutX="10.0" layoutY="126.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="179.0" stylesheets="@../../css/btn2.css" text="Logout">
                <graphic>
-                  <FontAwesomeIconView glyphName="USERS" glyphStyle="-fx-fill:white" size="24" />
+                  <FontAwesomeIconView glyphName="LOCK" glyphStyle="-fx-fill:white" size="24" />
                </graphic>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
@@ -214,14 +214,6 @@
                </children>
             </HBox>
             <Label layoutX="424.0" layoutY="3.0" style="-fx-text-fill: #0066AE;" text="Application Dashboard">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <padding>
-                  <Insets top="3.0" />
-               </padding>
-            </Label>
-            <Label layoutX="886.0" layoutY="7.0" prefHeight="23.0" prefWidth="110.0" style="-fx-text-fill: #0066AE; -fx-alignment: center;" text="User">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
