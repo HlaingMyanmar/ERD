@@ -1,6 +1,7 @@
 SELECT
     jd.account_id,
     coa.account_name,
+    coa.account_type,
     SUM(jd.debit) AS total_debit,
     SUM(jd.credit) AS total_credit,
     SUM(jd.debit) - SUM(jd.credit) AS balance,
@@ -11,4 +12,4 @@ SELECT
         END AS balance_type
 FROM journal_details jd
          JOIN chart_of_accounts coa ON jd.account_id = coa.account_id
-GROUP BY jd.account_id, coa.account_name;
+GROUP BY jd.account_id, coa.account_name, coa.account_type;

@@ -414,9 +414,8 @@ CREATE TABLE capital_injections (
                                     amount DECIMAL(10,2) NOT NULL,
                                     description TEXT,
                                     transaction_id VARCHAR(50),
-                                    payment_id INT,
-                                    FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id),
-                                    FOREIGN KEY (payment_id) REFERENCES transaction_payments(payment_id)
+                                    FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id)
+
 
 );
 
@@ -428,8 +427,8 @@ CREATE TABLE capital_withdrawals (
                                      description TEXT,
                                      transaction_id VARCHAR(50),
                                      payment_id INT,
-                                     FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id),
-                                     FOREIGN KEY (payment_id) REFERENCES transaction_payments(payment_id)
+                                     FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id)
+
 
 );
 -- ********************** Services Management **********************

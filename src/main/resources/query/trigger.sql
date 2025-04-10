@@ -1,8 +1,31 @@
--- transaction payment ->journal_entries -> journal_details trigger
 
+
+-- transaction - >transaction payment ->journal_entries -> journal_details trigger
 
 DELIMITER //
 
+CREATE TRIGGER after_transaction_insert_payments
+    AFTER INSERT ON transactions
+    FOR EACH ROW
+BEGIN
+    INSERT INTO transaction_payments (
+        transaction_id,
+        payment_date,
+        method_id,
+        amount,
+        verified_by
+    ) VALUES (
+                 NEW.transaction_id,
+                 NOW(),
+                 NEW.method_id,
+                 NEW.total_amount,
+                 IFNULL(@current_user_id, 1)  -- လက်ရှိ user ID မရှိရင် default 1
+             );
+END //
+
+DELIMITER ;
+
+DELIMITER //
 CREATE TRIGGER after_payment_insert_journal_entries
     AFTER INSERT ON transaction_payments
     FOR EACH ROW
@@ -27,6 +50,9 @@ BEGIN
 END //
 
 DELIMITER ;
+
+
+
 DELIMITER //
 
 CREATE TRIGGER after_journal_entries_insert_details
@@ -35,12 +61,11 @@ CREATE TRIGGER after_journal_entries_insert_details
 BEGIN
     DECLARE pay_amount DECIMAL(15,2);
     DECLARE pay_transaction_id VARCHAR(50);
-    DECLARE pay_method_id INT;
     DECLARE trans_account_id INT;
 
-    -- transaction_payments ကနေ လိုအပ်တဲ့ ဒေတာယူမယ်
-    SELECT tp.amount, tp.transaction_id, tp.method_id, t.account_id
-    INTO pay_amount, pay_transaction_id, pay_method_id, trans_account_id
+    -- transaction_payments နဲ့ transactions ကနေ လိုအပ်တဲ့ ဒေတာယူမယ်
+    SELECT tp.amount, tp.transaction_id, t.account_id
+    INTO pay_amount, pay_transaction_id, trans_account_id
     FROM transaction_payments tp
              JOIN transactions t ON tp.transaction_id = t.transaction_id
     WHERE t.reference_no = NEW.reference_no
@@ -73,3 +98,29 @@ END //
 
 DELIMITER ;
 
+INSERT INTO transactions (
+    transaction_id, transaction_date, reference_no, total_amount, paid_amount, status, account_id, method_id
+) VALUES (
+             'TXN-CAP-001', NOW(), 'CAP-001', 50000.00, 50000.00, 'Paid', 1, 2
+         );
+
+INSERT INTO transactions (
+    transaction_id, transaction_date, reference_no, total_amount, paid_amount, status, account_id, method_id
+) VALUES (
+             'TXN-SALE-001', NOW(), 'SALE-001', 60000.00, 60000.00, 'Paid', 1, 1
+         );
+
+INSERT INTO transactions (
+    transaction_id, transaction_date, reference_no, total_amount, paid_amount, status, account_id, method_id
+) VALUES (
+             'TXN-EXP-001', NOW(), 'EXP-001', 20000.00, 20000.00, 'Paid', 1, 1
+         );
+
+INSERT INTO transactions (
+    transaction_id, transaction_date, reference_no, total_amount, paid_amount, status, account_id, method_id
+) VALUES (
+             'TXN-CAP-001', NOW(), 'CAP-001', 50000.00, 50000.00, 'Paid', 21, 2
+         );
+
+INSERT INTO capital_injections (injection_date, amount, description, transaction_id) VALUES (
+                                                                                                '2025-04-11', 50000.00, 'Additional Capital', 'TXN-CAP-001');
