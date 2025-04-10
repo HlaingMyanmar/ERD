@@ -1,4 +1,8 @@
-package org.erd.dashboard;
+package org.erd.dashboard
 
-public class MaindashboardController {
+import org.springframework.stereotype.Controller
+
+
+@Controller
+class MaindashboardController {
 }

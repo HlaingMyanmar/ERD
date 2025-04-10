@@ -131,6 +131,9 @@ module org.erd {
     opens org.erd.loginoptions to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.loginoptions;
 
+    opens org.erd.dashboard to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.dashboard;
+
 
 
 
