@@ -4,7 +4,8 @@ package org.erd.chartofaccountoptions.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.erd.transactionoptions.models.Transactions;
+
+import org.erd.transactionoptions.model.Transaction;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -34,7 +35,9 @@ public class ChartOfAccounts {
    private String activation;
 
    @OneToMany(mappedBy = "account_id", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-   private Set<Transactions> transactionsSet;
+   private Set<Transaction> transactionsSet;
+
+
 
    public ChartOfAccounts(String account_name, String account_type) {
       this.account_name = account_name;

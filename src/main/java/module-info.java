@@ -26,6 +26,7 @@ module org.erd {
     requires jfxtras.controls;
     requires com.google.protobuf;
     requires kotlin.stdlib;
+    requires javafx.graphics;
 
     opens org.erd to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core;
     exports org.erd;
@@ -135,11 +136,22 @@ module org.erd {
     exports org.erd.dashboard;
 
 
+    opens org.erd.transactionoptions.service to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.transactionoptions.service;
+
+    opens org.erd.transactionoptions.impls to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.transactionoptions.impls;
+
+
+    opens org.erd.transactionoptions.model to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.transactionoptions.model;
+
+
     opens org.erd.capitaloptions.service to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.capitaloptions.service;
 
-    opens org.erd.capitaloptions.impl to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
-    exports org.erd.capitaloptions.impl;
+    opens org.erd.capitaloptions.impls to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.capitaloptions.impls;
 
     opens org.erd.capitaloptions.controller to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.capitaloptions.controller;
@@ -147,8 +159,9 @@ module org.erd {
     opens org.erd.capitaloptions.model to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.capitaloptions.model;
 
-    opens org.erd.transactionoptions.models to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
-    exports org.erd.transactionoptions.models;
+
+
+
 
 
 
