@@ -3,16 +3,19 @@ package org.erd.capitaloptions.impls
 import org.erd.capitaloptions.model.CapitalInjection
 import org.erd.capitaloptions.views.CapitalInjectionDTO
 import org.erd.dao.DataAccessObject
+import org.erd.transactionoptions.model.Transaction
+import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.springframework.stereotype.Repository
 
 @Repository
 class Capitaldb (
+
     private val sessionFactory: SessionFactory
 ): DataAccessObject<CapitalInjection>{
 
 
-    fun getCaptitalViewModel(): List<CapitalInjectionDTO>{
+    fun getCapitalViewModel(): List<CapitalInjectionDTO>{
 
         return try {
             val sql = """
@@ -47,6 +50,33 @@ class Capitaldb (
             emptyList()
         }
 
+    }
+
+    fun insertTransactionCapital(t: Transaction, c: CapitalInjection?, session: Session): Boolean {
+        return try {
+
+            val tx = session.beginTransaction()
+
+
+            session.persist(t)
+
+
+            c?.let { capitalInjection ->
+
+                capitalInjection.transaction = t
+                t.capitalInjection = capitalInjection
+                session.persist(capitalInjection)
+            }
+
+
+            tx.commit()
+            true
+        } catch (e: Exception) {
+
+            session.transaction?.rollback()
+            println("Error inserting transaction and capital injection: ${e.message}")
+            false
+        }
     }
 
     override fun getAllData(): List<CapitalInjection?>? {

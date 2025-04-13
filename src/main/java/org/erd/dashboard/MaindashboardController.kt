@@ -36,6 +36,7 @@ class MaindashboardController() : Initializable {
 
         capitalbtn.setOnMouseClicked {
 
+
             val stage = Stage()
             val mainStage: Stage = capitalbtn.scene.window as Stage
             val fxmlLoader = FXMLLoader(App::class.java.getResource("/views/capitalview/injectionsview.fxml"))

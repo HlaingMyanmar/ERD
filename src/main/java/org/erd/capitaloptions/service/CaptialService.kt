@@ -11,7 +11,7 @@ class CaptialService (private val capitaldb: Capitaldb) {
     fun getCaptialInjectdataView(): List<CapitalInjectionDTO>{
 
 
-        return capitaldb.getCaptitalViewModel()
+        return capitaldb.getCapitalViewModel()
 
 
     }

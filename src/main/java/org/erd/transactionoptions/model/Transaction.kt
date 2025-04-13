@@ -10,7 +10,9 @@ import jakarta.persistence.Table
 import jakarta.validation.constraints.NotBlank
 import org.erd.capitaloptions.model.CapitalInjection
 import org.erd.chartofaccountoptions.model.ChartOfAccounts
+import org.erd.paymentoptions.model.Payment
 import org.springframework.stereotype.Component
+import java.math.BigDecimal
 import java.sql.Timestamp
 
 @Component
@@ -19,7 +21,7 @@ import java.sql.Timestamp
 class Transaction {
 
     @Id
-    var transaction_id: Int = 0
+    var transaction_id: String = ""
 
     @Column(name = "transaction_date")
     var transaction_date: Timestamp = Timestamp(System.currentTimeMillis())
@@ -29,13 +31,13 @@ class Transaction {
     var reference_no : String? = null
 
     @Column(name = "total_amount")
-    var total_amount : Double = 0.0
+    var total_amount : BigDecimal = BigDecimal.ZERO
 
     @Column(name = "paid_amount")
-    var paid_amount : Double = 0.0
+    var paid_amount : BigDecimal = BigDecimal.ZERO
 
     @Column(name = "balance")
-    var  balance : Double = 0.0
+    var  balance : BigDecimal = BigDecimal.ZERO
 
     @Column(name = "status")
     var statu : String? = "Unpaid"
@@ -47,7 +49,11 @@ class Transaction {
     val account_id: ChartOfAccounts? = null
 
     @OneToOne(mappedBy = "transaction")
-    val capitalInjection: CapitalInjection? = null
+    var capitalInjection: CapitalInjection? = null
+
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    val method_Id: Payment? = null
 
 
 
