@@ -159,6 +159,9 @@ module org.erd {
     opens org.erd.capitaloptions.model to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
     exports org.erd.capitaloptions.model;
 
+    opens org.erd.capitaloptions.views to javafx.fxml, spring.core, spring.beans, org.hibernate.orm.core,org.hibernate.validator;
+    exports org.erd.capitaloptions.views;
+
 
 
 

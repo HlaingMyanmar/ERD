@@ -61,7 +61,7 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker fx:id="datep" prefHeight="36.0" prefWidth="222.0" GridPane.columnIndex="1" />
+                                    <DatePicker fx:id="datep" prefHeight="36.0" prefWidth="222.0" promptText="date" GridPane.columnIndex="1" />
                                     <TextField fx:id="amountxt" prefHeight="33.0" prefWidth="388.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextArea fx:id="descriptiontxt" prefHeight="52.0" prefWidth="388.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Button fx:id="addbtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" stylesheets="@../../css/btn2.css" text="Add Injection" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -161,13 +161,13 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TableView prefHeight="349.0" prefWidth="767.0" stylesheets="@../../css/tableview.css">
+      <TableView fx:id="captialtable" prefHeight="349.0" prefWidth="767.0" stylesheets="@../../css/tableview.css">
         <columns>
-          <TableColumn prefWidth="75.0" text="Date" />
-            <TableColumn prefWidth="151.0" text="Transcation Code" />
-            <TableColumn prefWidth="127.0" text="Payment " />
-          <TableColumn prefWidth="94.0" text="Amount" />
-            <TableColumn prefWidth="330.0" text="Description" />
+          <TableColumn fx:id="dateCol" prefWidth="118.0" text="Date" />
+            <TableColumn fx:id="tcodeCol" prefWidth="154.0" text="Transcation Code" />
+            <TableColumn fx:id="paymentCol" prefWidth="126.0" text="Payment " />
+          <TableColumn fx:id="amountCol" prefWidth="117.0" text="Amount" />
+            <TableColumn fx:id="textCol" prefWidth="262.0" text="Description" />
         </columns>
       </TableView>
    </children>
