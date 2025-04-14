@@ -45,15 +45,15 @@ class Transaction {
     var notes : String? = ""
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    val account_id: ChartOfAccounts? = null
+    @JoinColumn(name = "account_id",nullable = false)
+    var account_id: ChartOfAccounts? = null
 
     @OneToOne(mappedBy = "transaction")
     var capitalInjection: CapitalInjection? = null
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    val method_Id: Payment? = null
+    @JoinColumn(name = "method_Id")
+    val payment: Payment? = null
 
 
 

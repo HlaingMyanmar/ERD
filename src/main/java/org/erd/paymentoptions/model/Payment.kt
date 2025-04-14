@@ -36,6 +36,6 @@ import org.springframework.stereotype.Component
     @Column(name = "is_active", length = 1)
     var isActive: Byte = 0
 
-    @OneToMany(mappedBy = "method_id", fetch = FetchType.LAZY)
-    lateinit var transactionsSet: Set<Transaction>
+   @OneToMany(mappedBy = "payment", fetch = FetchType.LAZY)
+   val transactions: Set<Transaction> = emptySet()
 }

@@ -19,6 +19,7 @@ import org.erd.capitaloptions.model.CapitalInjection
 import org.erd.capitaloptions.service.CaptialService
 import org.erd.capitaloptions.views.CapitalInjectionDTO
 import org.erd.chartofaccountoptions.model.ChartOfAccounts
+import org.erd.chartofaccountoptions.service.ChartOfAccountsService
 import org.erd.paymentoptions.model.Payment
 import org.erd.paymentoptions.service.PaymentService
 import org.erd.transactionoptions.model.Transaction
@@ -34,7 +35,14 @@ import java.util.stream.Collectors
 
 
 @Controller
-class CapitalInjectionController(private val paymentService: PaymentService , private val capitalService: CaptialService) : Initializable {
+class CapitalInjectionController(
+    private val paymentService: PaymentService ,
+    private val capitalService: CaptialService,
+    private val chartOfAccountsService: ChartOfAccountsService
+
+
+
+) : Initializable {
 
     @FXML
     private lateinit var addbtn : Button
@@ -104,17 +112,20 @@ class CapitalInjectionController(private val paymentService: PaymentService , pr
                 paymentService.getAllPayment().find { it.methodName == paymentMethodName }?.method_Id
             }
 
-            val transaction = Transaction()
+//            val transaction = Transaction()
+//
+//            transaction.transaction_id = "TXN-${UUID.randomUUID().toString().substring(0, 8)}"
+//            transaction.transaction_date = Timestamp(System.currentTimeMillis())
+//            transaction.reference_no =  "REF-${UUID.randomUUID().toString().substring(0, 8)}"
+//            transaction.total_amount =  amount
+//            transaction.paid_amount =  amount
+//            transaction.statu = "Paid"
+//            transaction.notes = description
+//            transaction.account_id= chartOfAccountsService.allData.find { it.account_name=="Owner’s Capital" }?.account_id as ChartOfAccounts?
 
-            transaction.transaction_id = "TXN-${UUID.randomUUID().toString().substring(0, 8)}"
-            transaction.transaction_date = Timestamp(System.currentTimeMillis())
-            transaction.reference_no =  "REF-${UUID.randomUUID().toString().substring(0, 8)}"
-            transaction.total_amount =  amount
-            transaction.paid_amount =  amount
-            transaction.statu = "Paid"
-            transaction.notes = description
-          //  transaction.account_id = ChartOfAccounts(accountName = "Capital",accountType = "Equity")
+            var id =  chartOfAccountsService.allData.find { it.account_name=="Owner’s Capital" }?.account_id as ChartOfAccounts?
 
+            println(id)
 
 //            val transaction = Transaction(
 //                transactionId = "TXN-${UUID.randomUUID().toString().substring(0, 8)}",
