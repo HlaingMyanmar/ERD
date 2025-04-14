@@ -33,7 +33,7 @@ class CapitalInjection {
     var description : String? = null
 
     @OneToOne
-    @JoinColumn(name = "transaction_id", unique = true)
+    @JoinColumn(name = "transaction_id", unique = true )
     var transaction: Transaction  = Transaction()
 
 

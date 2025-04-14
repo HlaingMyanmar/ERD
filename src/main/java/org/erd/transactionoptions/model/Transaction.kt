@@ -1,5 +1,7 @@
 package org.erd.transactionoptions.model
 
+import com.google.protobuf.Method
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
@@ -18,7 +20,7 @@ import java.sql.Timestamp
 @Component
 @Entity
 @Table(name = "transactions")
-class Transaction {
+class Transaction() {
 
     @Id
     @Column(name = "transaction_id", unique = true)
@@ -49,12 +51,14 @@ class Transaction {
     @JoinColumn(name = "account_id",nullable = false)
     var account_id: ChartOfAccounts? = null
 
-    @OneToOne(mappedBy = "transaction")
+    @OneToOne(mappedBy = "transaction" , cascade = [CascadeType.ALL])
     var capitalInjection: CapitalInjection? = null
 
     @ManyToOne
     @JoinColumn(name = "method_Id")
     var payment: Payment? = null
+
+
 
 
 

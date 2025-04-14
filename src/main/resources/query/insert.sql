@@ -21,7 +21,7 @@ INSERT INTO permissions (permission_name, description, is_active) VALUES
 ('archive_data', 'Archive old records', 0);
 
 INSERT INTO users (username, password, is_active) VALUES
-('admin1', 'hashed_password_123', 1),
+('admin1', '123', 1),
 ('mgr_john', 'hashed_password_456', 1),
 ('staff_aye', 'hashed_password_789', 1),
 ('supervisor_ko', 'hashed_password_101', 1),

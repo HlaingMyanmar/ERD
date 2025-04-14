@@ -83,12 +83,9 @@ BEGIN
 
 
     ELSEIF NEW.reference_no LIKE 'SALE-%' THEN
-        -- Sales Revenue
-        INSERT INTO journal_details (entry_id, account_id, debit, credit)
-        VALUES (NEW.entry_id, trans_account_id, pay_amount, 0.00);  -- Debit Cash
 
     INSERT INTO journal_details (entry_id, account_id, debit, credit)
-    VALUES (NEW.entry_id, 30, 0.00, pay_amount);  -- Credit Sales Revenue
+    VALUES (NEW.entry_id, 28, 0.00, pay_amount);  -- Credit Sales Revenue
     ELSEIF NEW.reference_no LIKE 'EXP-%' THEN
         -- Expense
         INSERT INTO journal_details (entry_id, account_id, debit, credit)
