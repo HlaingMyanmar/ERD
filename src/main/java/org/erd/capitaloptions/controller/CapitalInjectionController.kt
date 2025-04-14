@@ -23,11 +23,14 @@ import org.erd.chartofaccountoptions.service.ChartOfAccountsService
 import org.erd.paymentoptions.model.Payment
 import org.erd.paymentoptions.service.PaymentService
 import org.erd.transactionoptions.model.Transaction
+import org.hibernate.Session
+import org.hibernate.SessionFactory
 import org.springframework.stereotype.Controller
 import java.math.BigDecimal
 import java.net.URL
 import java.sql.Date
 import java.sql.Timestamp
+import java.time.Instant
 import java.time.LocalDate
 import java.util.ResourceBundle
 import java.util.UUID
@@ -38,7 +41,8 @@ import java.util.stream.Collectors
 class CapitalInjectionController(
     private val paymentService: PaymentService ,
     private val capitalService: CaptialService,
-    private val chartOfAccountsService: ChartOfAccountsService
+    private val chartOfAccountsService: ChartOfAccountsService,
+    private val sessionFactory: SessionFactory
 
 
 
@@ -83,7 +87,7 @@ class CapitalInjectionController(
 
         datep.value = LocalDate.now()
 
-        ComboxBoxData()
+        paymentComboxBoxData()
 
         tableIni()
 
@@ -122,9 +126,9 @@ class CapitalInjectionController(
 
 
             // Create Transactions
-            transaction.transaction_id = "TXN-${UUID.randomUUID().toString().substring(0, 8)}"
+            transaction.transaction_id = "TXN-CAP-${UUID.randomUUID().toString().substring(0, 8)}"
             transaction.transaction_date = Timestamp(System.currentTimeMillis())
-            transaction.reference_no =  "REF-${UUID.randomUUID().toString().substring(0, 8)}"
+            transaction.reference_no =  "REF-CAP-${UUID.randomUUID().toString().substring(0, 8)}"
             transaction.total_amount =  amount
             transaction.paid_amount =  amount
             transaction.statu = "Paid"
@@ -138,6 +142,24 @@ class CapitalInjectionController(
             capitalInjection.amount = amount.toDouble()
             capitalInjection.description = description
             capitalInjection.transaction = transaction
+
+            // Create Session
+            val session = sessionFactory.openSession()
+
+
+
+
+
+            capitalService.insertTransactionCapitalInjection(transaction, capitalInjection, session)
+
+            session.close()
+
+            captialtable.items = getLoadCapitalInjection()
+
+            clear()
+
+
+
 
 
 
@@ -159,12 +181,25 @@ class CapitalInjectionController(
 
     }
 
+    private fun clear(){
+
+        datep.value = LocalDate.now()
+        paymentcb.editor.text = null
+        amountxt.text =null
+        descriptiontxt.text = null
 
 
-    private fun ComboxBoxData(){
+
+
+    }
+
+
+
+    private fun paymentComboxBoxData(){
         paymentLists.addAll(paymentService.getAllPayment()
 
             .stream()
+            .filter { payment -> payment.isActive.toInt() ==1 }
             .map { payment->payment.methodName }
             .collect(Collectors.toList())
 

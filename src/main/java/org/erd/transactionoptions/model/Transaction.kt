@@ -21,6 +21,7 @@ import java.sql.Timestamp
 class Transaction {
 
     @Id
+    @Column(name = "transaction_id", unique = true)
     var transaction_id: String = ""
 
     @Column(name = "transaction_date")

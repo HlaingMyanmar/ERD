@@ -72,13 +72,16 @@ BEGIN
         LIMIT 1;
 
     -- Transaction ရဲ့ သဘောသဘာဝပေါ် မူတည်ပြီး debit/credit ထည့်မယ်
-    IF NEW.reference_no LIKE 'CAP-%' THEN
+    IF NEW.reference_no LIKE 'REF-CAP-%' THEN
         -- Capital Injection
         INSERT INTO journal_details (entry_id, account_id, debit, credit)
-        VALUES (NEW.entry_id, trans_account_id, pay_amount, 0.00);  -- Debit Cash
+        VALUES (NEW.entry_id, trans_account_id, 0.00, 0.00);  -- Debit Cash
 
     INSERT INTO journal_details (entry_id, account_id, debit, credit)
     VALUES (NEW.entry_id, 21, 0.00, pay_amount);  -- Credit Owner’s Capital
+
+
+
     ELSEIF NEW.reference_no LIKE 'SALE-%' THEN
         -- Sales Revenue
         INSERT INTO journal_details (entry_id, account_id, debit, credit)
