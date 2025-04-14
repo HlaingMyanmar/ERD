@@ -38,6 +38,9 @@ public class ChartOfAccounts {
    private Set<Transaction> transactionsSet;
 
 
+   public ChartOfAccounts(int account_id) {
+      this.account_id = account_id;
+   }
 
    public ChartOfAccounts(String account_name, String account_type) {
       this.account_name = account_name;

@@ -109,35 +109,43 @@ class CapitalInjectionController(
             val description = descriptiontxt.text.trim().ifEmpty { null }
             val paymentMethodName = paymentcb.editor.text.takeIf { it.isNotEmpty() }
             val paymentID = paymentMethodName?.let { paymentMethodName ->
-                paymentService.getAllPayment().find { it.methodName == paymentMethodName }?.method_Id
+                paymentService.getAllPayment().find { it.methodName == paymentMethodName }?.method_Id?.toInt()
             }
 
-//            val transaction = Transaction()
-//
-//            transaction.transaction_id = "TXN-${UUID.randomUUID().toString().substring(0, 8)}"
-//            transaction.transaction_date = Timestamp(System.currentTimeMillis())
-//            transaction.reference_no =  "REF-${UUID.randomUUID().toString().substring(0, 8)}"
-//            transaction.total_amount =  amount
-//            transaction.paid_amount =  amount
-//            transaction.statu = "Paid"
-//            transaction.notes = description
-//            transaction.account_id= chartOfAccountsService.allData.find { it.account_name=="Owner’s Capital" }?.account_id as ChartOfAccounts?
+            var id =  chartOfAccountsService.allData.find { it.account_name=="Owner’s Capital" }?.account_id ?.toInt()
 
-            var id =  chartOfAccountsService.allData.find { it.account_name=="Owner’s Capital" }?.account_id as ChartOfAccounts?
 
-            println(id)
+            val transaction = Transaction()
+            val payment: Payment? = Payment()
 
-//            val transaction = Transaction(
-//                transactionId = "TXN-${UUID.randomUUID().toString().substring(0, 8)}",
-//                transactionDate = Timestamp(System.currentTimeMillis()),
-//                referenceNo = "REF-${UUID.randomUUID().toString().substring(0, 8)}",
-//                totalAmount = amount,
-//                paidAmount = amount,
-//                status = "Paid",
-//                notes = description,
-//                account = ChartOfAccounts(accountName = "Capital", accountType = "Equity"),
-//                paymentMethod = paymentID
-//            )
+            payment?.method_Id = paymentID
+
+
+            // Create Transactions
+            transaction.transaction_id = "TXN-${UUID.randomUUID().toString().substring(0, 8)}"
+            transaction.transaction_date = Timestamp(System.currentTimeMillis())
+            transaction.reference_no =  "REF-${UUID.randomUUID().toString().substring(0, 8)}"
+            transaction.total_amount =  amount
+            transaction.paid_amount =  amount
+            transaction.statu = "Paid"
+            transaction.notes = description
+            transaction.account_id= ChartOfAccounts(id as Int)
+            transaction.payment =payment
+
+            // Create CapitalInjections
+            val capitalInjection = CapitalInjection()
+            capitalInjection.injection_date = injectionDate
+            capitalInjection.amount = amount.toDouble()
+            capitalInjection.description = description
+            capitalInjection.transaction = transaction
+
+
+
+
+
+
+
+
 
 
 

@@ -53,7 +53,9 @@ class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "method_Id")
-    val payment: Payment? = null
+    var payment: Payment? = null
+
+
 
 
 

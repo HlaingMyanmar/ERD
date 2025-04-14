@@ -94,7 +94,7 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
                 return@setOnMouseClicked
             }
 
-            val payment = Payment()
+            val payment = Payment(paymentID)
             payment.methodCode = paymentCode
             payment.methodName = paymentMethod
             payment.isDigital = isDigital
@@ -146,7 +146,7 @@ class PaymentMethodController (private val paymentService: PaymentService ,priva
                    val isDigital = isDigitalCheckbox().toByte()
                    val status = getConditionCheckbox().toByte()
 
-                    val payment = Payment()
+                    val payment = Payment(paymentID)
                     payment.method_Id = p?.method_id
                     payment.methodCode = paymentCode.toString()
                     payment.methodName = paymentMethod.toString()
